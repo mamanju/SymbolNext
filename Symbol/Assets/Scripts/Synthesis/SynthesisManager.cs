@@ -23,18 +23,6 @@ public class SynthesisManager : MonoBehaviour
     /// </summary>
     public SynthesisPhase Phase{ get { return phase; } set { phase = value; } }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     /// <summary>
     /// 合成後に、使ったクリスタルを消費
     /// </summary>
@@ -45,9 +33,7 @@ public class SynthesisManager : MonoBehaviour
         {
             if (i == null) { continue; }
             playersCrystal.Remove(i);
-        }
-        
-        
+        }    
     }
 
     /// <summary>

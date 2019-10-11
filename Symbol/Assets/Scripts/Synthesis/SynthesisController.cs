@@ -28,12 +28,6 @@ public class SynthesisController : SynthesisManager
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     /// <summary>
     /// 選んだクリスタルを入れる
     /// </summary>
@@ -42,12 +36,25 @@ public class SynthesisController : SynthesisManager
     public void ChooseCrystal(CrystalInfo crystal,int num)
     {
         chooseBox[num] = crystal;
+        // 所持してるクリスタルから選んだクリスタルの数を減らす
     }
+
+    /// <summary>
+    /// 箱からクリスタルの削除
+    /// </summary>
+    /// <param name="num"></param>
+    public void DeleteCrystal(int num)
+    {
+        chooseBox[num] = null;
+        // 所持してるクリスタルから選んだクリスタルの数を戻す
+    }
+
+
 
     /// <summary>
     /// 合成
     /// </summary>
-    void Synthesis()
+    public void Synthesis()
     {
         // 合成のフェイズを「合成」に進める
         Phase = SynthesisPhase.Synthesis;
