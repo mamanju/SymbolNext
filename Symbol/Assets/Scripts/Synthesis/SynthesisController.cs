@@ -14,18 +14,21 @@ public class SynthesisController : SynthesisManager
     private int synshesisID = 0x0000;
 
     int synthesisBox = 0x0000;
-    int aCrystal = 0x0001;
-    int bCrystal = 0x0002;
-    int cCrystal = 0x0004;
-    int swordCrystal = 0x0003;
+    int aCrystal = 0x5000;
+    int bCrystal = 0x0a00;
+    int cCrystal = 0x00b0;
+    int dCrystal = 0x000c;
+
+    int swordCrystal = 0x5abc;
     // Start is called before the first frame update
     void Start()
     {
-        synthesisBox = aCrystal | bCrystal;
+        synthesisBox = aCrystal | bCrystal | cCrystal | dCrystal;
         if(synthesisBox == swordCrystal)
         {
             Debug.Log("True");
         }
+        Debug.Log("テスト＝"+System.Convert.ToString(synthesisBox,16));
     }
 
     /// <summary>
@@ -70,5 +73,30 @@ public class SynthesisController : SynthesisManager
 
         // 合成図のフェイズを「素材箱選択」に戻す
         Phase = SynthesisPhase.BoxChoose;
+    }
+
+    /// <summary>
+    /// 合成前にソート
+    /// </summary>
+    /// <param name="box"></param>
+    /// <returns></returns>
+    public CrystalInfo[] CrystalSort(CrystalInfo[] box) {
+        CrystalInfo[] crystalBox = box;
+        bool sortFlag = false;
+        // バブルソート
+        do {
+            int temp = 0;
+            sortFlag = false;
+            for (int i = 0; i > crystalBox.Length - 1; i++) {
+                if (crystalBox[i].info.ID < crystalBox[i + 1].info.ID) {
+                    temp = crystalBox[i].info.ID;
+                    crystalBox[i].info.ID = crystalBox[i + 1].info.ID;
+                    crystalBox[i + 1].info.ID = temp;
+                    sortFlag = true;
+                }
+            }
+        } while (!sortFlag);
+        return box;
+
     }
 }
