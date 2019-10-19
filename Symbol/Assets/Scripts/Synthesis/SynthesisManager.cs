@@ -12,8 +12,8 @@ public class SynthesisManager : MonoBehaviour
     // フェイズのEnum
     public enum SynthesisPhase
     {
-        BoxChoose,
         CrystalChoose,
+        BoxChoose,
         Synthesis,
         finish,
     }

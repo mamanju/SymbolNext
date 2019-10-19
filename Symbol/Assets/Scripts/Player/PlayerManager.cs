@@ -15,7 +15,10 @@ public struct PlayerStatus
     private int attack;
     public int Attack { get { return attack; } set { attack = value; } }
 
-    public List<CrystalInfo> crystalBag;
+    private List<Dictionary<CrystalInfo, int>> crystalBag;
+
+    public List<Dictionary<CrystalInfo, int>> CrystalBag { get { return crystalBag; } set { crystalBag = value; } }
+
 }
 
 /// <summary>

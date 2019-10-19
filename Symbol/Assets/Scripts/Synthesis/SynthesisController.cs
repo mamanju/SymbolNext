@@ -52,8 +52,6 @@ public class SynthesisController : SynthesisManager
         // 所持してるクリスタルから選んだクリスタルの数を戻す
     }
 
-
-
     /// <summary>
     /// 合成
     /// </summary>
@@ -66,7 +64,7 @@ public class SynthesisController : SynthesisManager
 
         // True：ManagerクラスのPlayersCrystalに、合成箱と同じIDのクリスタルを入れる
 
-        // False：ManagerクラスのPlayersCrystalに、「ー」のクリスタルを入れる
+        // False：ManagerクラスのPlayersCrystalに、失敗クリスタルを入れる
 
         // 合成に使ったクリスタルを消費
         RemoveCrystal(chooseBox);
@@ -80,23 +78,22 @@ public class SynthesisController : SynthesisManager
     /// </summary>
     /// <param name="box"></param>
     /// <returns></returns>
-    public CrystalInfo[] CrystalSort(CrystalInfo[] box) {
-        CrystalInfo[] crystalBox = box;
-        bool sortFlag = false;
-        // バブルソート
-        do {
-            int temp = 0;
-            sortFlag = false;
-            for (int i = 0; i > crystalBox.Length - 1; i++) {
-                if (crystalBox[i].info.ID < crystalBox[i + 1].info.ID) {
-                    temp = crystalBox[i].info.ID;
-                    crystalBox[i].info.ID = crystalBox[i + 1].info.ID;
-                    crystalBox[i + 1].info.ID = temp;
-                    sortFlag = true;
-                }
-            }
-        } while (!sortFlag);
-        return box;
-
-    }
+    //public CrystalInfo[] CrystalSort(CrystalInfo[] box) {
+    //    CrystalInfo[] crystalBox = box;
+    //    bool sortFlag = false;
+    //    // バブルソート
+    //    do {
+    //        int temp = 0;
+    //        sortFlag = false;
+    //        for (int i = 0; i > crystalBox.Length - 1; i++) {
+    //            if (crystalBox[i].info.ID < crystalBox[i + 1].info.ID) {
+    //                temp = crystalBox[i].info.ID;
+    //                crystalBox[i].info.ID = crystalBox[i + 1].info.ID;
+    //                crystalBox[i + 1].info.ID = temp;
+    //                sortFlag = true;
+    //            }
+    //        }
+    //    } while (!sortFlag);
+    //    return box;
+    //}
 }
