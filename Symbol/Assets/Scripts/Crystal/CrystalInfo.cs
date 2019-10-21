@@ -5,22 +5,44 @@ using UnityEngine;
 /// <summary>
 /// クリスタルの情報
 /// </summary>
-public class CrystalInfo : MonoBehaviour
+public class CrystalInfo
 {
-    [System.Serializable]
-    public struct Crystal
+    public enum Form
     {
-        [Header("合成時に参照する")]
-        public int ID;
-        public enum Type
-        {
-            Original,
-            Weapon,
-            Item,
-        }
-        [Header("クリスタル使用時に参照する")]
-        public Type type;
+        stick,
+        slanting,
+        Circle,
+        Square,
+        Triangle,
+        Cross,
+        brackets,
     }
 
-    public Crystal info;
+    /// <summary>
+    /// 記号の形
+    /// </summary>
+    public Form form;
+    public enum Type
+    {
+        wood,
+        Iron,
+        Rock,
+        other,
+    }
+
+    /// <summary>
+    /// 材質
+    /// </summary>
+    public Type type;
+
+    
+}
+
+public class TestRecipe : CrystalInfo
+{
+    private Dictionary<Form, int> recipe = new Dictionary<Form, int>
+    {
+        {Form.stick,0 },{Form.stick,1 },
+        {Form.stick,1 },{Form.stick,0 }
+    };
 }
