@@ -8,20 +8,32 @@ using UnityEngine;
 public class SynthesisManager : MonoBehaviour
 {
     //プレイヤーが所持しているクリスタル
-    protected List<CrystalInfo> playersCrystal;
-    // フェイズのEnum
-    public enum SynthesisPhase
-    {
-        CrystalChoose,
-        BoxChoose,
-        Synthesis,
-        finish,
-    }
-    private SynthesisPhase phase;
+    private Dictionary<CrystalInfo, int> playersCrystal;
+    private List<int> crystalStock;
+
+    // クリスタルをつかんでるかどうかの状態(0:Default、1:Catch)
+    private bool catchFlag = false;
+
+    // 今つかんでるクリスタル
+    private GameObject catchingCrystal;
+    // 持ち物クリスタル
+    private List<CrystalInfo> crystalBox;
+
+    public Dictionary<CrystalInfo, int> GetCrystalBox { get { return playersCrystal; } }
+
     /// <summary>
-    /// 合成のフェイズ
+    /// 必要なデータの取り出し
     /// </summary>
-    public SynthesisPhase Phase{ get { return phase; } set { phase = value; } }
+    void SetData()
+    {
+        PlayerStatus player = GameObject.Find("Player").GetComponent<PlayerManager>().GetStatus;
+        Dictionary<CrystalInfo, int> pCrystalBox;
+        pCrystalBox = player.CrystalBag;
+        foreach (var i in pCrystalBox)
+        {
+            playersCrystal.Add(i.Key, i.Value);
+        }
+    }
 
     /// <summary>
     /// 合成後に、使ったクリスタルを消費
@@ -41,7 +53,7 @@ public class SynthesisManager : MonoBehaviour
     /// </summary>
     public void GetHaveCrystals(List<CrystalInfo> bag)
     {
-        playersCrystal = bag;
+        //playersCrystal = bag;
     }
 
     /// <summary>
@@ -50,6 +62,6 @@ public class SynthesisManager : MonoBehaviour
     /// <param name="bag"></param>
     public void ApplyHaveCrystal(List<CrystalInfo> bag)
     {
-        bag = playersCrystal;
+        //bag = playersCrystal;
     }
 }

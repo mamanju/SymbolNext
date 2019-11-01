@@ -48,7 +48,6 @@ public class SynthesisController : SynthesisManager
     public void Synthesis()
     {
         // 合成のフェイズを「合成」に進める
-        Phase = SynthesisPhase.Synthesis;
 
         // 素材合成箱の情報と、レシピを比較
 
@@ -59,7 +58,6 @@ public class SynthesisController : SynthesisManager
         // 合成に使ったクリスタルを消費
 
         // 合成図のフェイズを「素材箱選択」に戻す
-        Phase = SynthesisPhase.BoxChoose;
     }
 
     /// <summary>

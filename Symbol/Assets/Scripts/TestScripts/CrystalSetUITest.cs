@@ -2,51 +2,49 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class CrystalSetUITest : MonoBehaviour
 {
     private Vector3 worldMousePos;
-    private int mouseState = 0;
-    private GameObject clickedGameObject;
 
-    // Start is called before the first frame update
-    void Start()
+    // クリスタルをつかんでるかどうかの状態(0:Default、1:Catch)
+    private bool catchFlag = false;
+
+    // 今つかんでるクリスタル
+    private GameObject catchingCrystal;
+
+    // 持ち物クリスタル
+    private GameObject crystalBox;
+
+    [SerializeField]
+    private SynthesisManager sManager;
+
+    /// <summary>
+    /// 初期化
+    /// </summary>
+    void SynthesisUIInit()
     {
-        
+        worldMousePos = new Vector3(0, 0, 0);
+        catchFlag = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    /// <summary>
+    /// 持ち物クリスタルの表示
+    /// </summary>
+    void IndicateCrystalUI()
     {
-        Vector3 mousePos = Input.mousePosition;
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    GameObject hitObj = null;
-        //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //    RaycastHit hit = new RaycastHit();
-        //    if(Physics.Raycast(ray, out hit))
-        //    {
-        //        hitObj = hit.collider.gameObject;
-        //    }
-        //    Debug.Log("Object=" + hitObj);
-        //}
-        if (Input.GetMouseButtonDown(0))
+        foreach(var i in sManager.GetCrystalBox)
         {
-
-            clickedGameObject = null;
-
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit2D hit2d = Physics2D.Raycast((Vector2)ray.origin, (Vector2)ray.direction);
-
-            if (hit2d)
+            foreach(var j in Common.Instance.GetPrefabData)
             {
-                clickedGameObject = hit2d.transform.gameObject;
+                if(i.Key.form != j.crystalForm)
+                {
+                    continue;
+                }
+                // クリスタルUIを表示
+                // GetCrystalBoxのValue分の値を追加
             }
-
-            Debug.Log(clickedGameObject);
         }
-
-
-
     }
 
     void CatchCrystal()
@@ -61,7 +59,7 @@ public class CrystalSetUITest : MonoBehaviour
 
     void ClickCheck(GameObject obj)
     {
-        if (mouseState == 0)
+        if (!catchFlag)
         {
             CatchCrystal();
         }
