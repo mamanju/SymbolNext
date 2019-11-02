@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class CrystalSetUITest : MonoBehaviour
@@ -18,6 +19,9 @@ public class CrystalSetUITest : MonoBehaviour
 
     [SerializeField]
     private SynthesisManager sManager;
+
+    [SerializeField]
+    private Image[] SynthesisPieces;
 
     /// <summary>
     /// 初期化

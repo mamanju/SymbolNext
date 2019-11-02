@@ -16,6 +16,7 @@ public class Common : SingletonMonoBehaviour<Common>
     /// <summary>
     /// ゲームの状態
     /// </summary>
+    [HideInInspector]
     public GameState state;
 
     [System.Serializable]
