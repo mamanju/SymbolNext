@@ -10,8 +10,20 @@ public class SynthesisUI : MonoBehaviour
 {
     // 持ち物クリスタル
     private CrystalInfo[] crystalBox;
+    private GameObject clickObject;
 
+    void SetInfo() {
+        // 所持アイテムのUIを反映
+        // 
+    }
 
+    void Update() {
+        
+    }
+
+    void ClickCrystalList(GameObject obj) {
+        Debug.Log(obj);
+    }
 
     /// <summary>
     /// 持ち物クリスタルから、使う素材をつかむ
