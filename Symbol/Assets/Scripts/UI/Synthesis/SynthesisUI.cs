@@ -9,17 +9,51 @@ using UnityEngine.UI;
 public class SynthesisUI : MonoBehaviour
 {
     // 持ち物クリスタル
-    private CrystalInfo[] crystalBox;
+    [SerializeField]
+    private GameObject crystalBoxUI;
+
+    [SerializeField]
+    private GameObject crystalUIMask;
+
+    [SerializeField]
+    private GameObject player;
+
     private GameObject clickObject;
 
     void SetInfo() {
-        // 所持アイテムのUIを反映
-        // 
+        int setCount = 0;
+        PlayerStatus status = player.GetComponent<PlayerManager>().GetStatus;
+        if(status.CrystalBag.Count == 0)
+        {
+            // バッグに何もなかった時の処理
+            return;
+        }
+
+        // 1個以上
+        foreach (var i in status.CrystalBag)
+        {
+            setCount++;
+            GameObject crystal = Resources.Load("Prefabs/CrystalPanel") as GameObject;
+            Instantiate(crystal, crystalUIMask.transform.GetChild(0));
+            Vector2 firstPos = new Vector2(crystalUIMask.GetComponent<RectTransform>().sizeDelta.x * 0.5f,0);
+            crystal.transform.position = new Vector2(firstPos.x + (crystal.GetComponent<RectTransform>().sizeDelta.x * 0.5f) * setCount,0);
+            crystal.GetComponent<CrystalUIInfo>().Info = i.Key;
+            crystal.GetComponent<Button>().onClick.AddListener(() => ClickCrystalList(crystal));
+        }
     }
 
-    void Update() {
-        
+    void NaraberuTest()
+    {
+        int createCount = 10;
+        for(int i = 1; i <= createCount; i++)
+        {
+            GameObject crystal = Resources.Load("Prefabs/CrystalPanel") as GameObject;
+            Vector2 firstPos = new Vector2(crystalUIMask.GetComponent<RectTransform>().sizeDelta.x * 0.5f, 0);
+            crystal.transform.position = new Vector2(firstPos.x + (crystal.GetComponent<RectTransform>().sizeDelta.x * 0.5f) * i, 0);
+
+        }
     }
+
 
     void ClickCrystalList(GameObject obj) {
         Debug.Log(obj);

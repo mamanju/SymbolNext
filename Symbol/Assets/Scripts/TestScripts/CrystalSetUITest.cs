@@ -41,7 +41,7 @@ public class CrystalSetUITest : MonoBehaviour
         {
             foreach(var j in Common.Instance.GetPrefabData)
             {
-                if(i.Key.form != j.crystalForm)
+                if(i.Key.data.form != j.crystalForm)
                 {
                     continue;
                 }

@@ -8,16 +8,11 @@ using UnityEngine;
 [System.Serializable]
 public struct PlayerStatus
 {
-    private int MaxHP { get; set; }
-    private int hp;
-    public int HP { get { return hp; } set { hp = value; } }
+    public int MaxHP;
+    public int Hp;
+    public int Attack;
 
-    private int attack;
-    public int Attack { get { return attack; } set { attack = value; } }
-
-    private Dictionary<CrystalInfo, int> crystalBag;
-
-    public Dictionary<CrystalInfo, int> CrystalBag { get { return crystalBag; } set { crystalBag = value; } }
+    public Dictionary<CrystalInfo, int> CrystalBag;
 
 }
 
@@ -26,8 +21,15 @@ public struct PlayerStatus
 /// </summary>
 public class PlayerManager : MonoBehaviour
 {
-    [SerializeField]
-    private PlayerStatus status;
+    public PlayerStatus status;
+
+    /// <summary>
+    /// テスト用スクリプト
+    /// </summary>
+    void TestCrystalSet()
+    {
+
+    }
 
     /// <summary>
     /// プレイヤー情報(管理)
