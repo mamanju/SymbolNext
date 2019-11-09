@@ -11,10 +11,17 @@ public class SynthesisController : SynthesisManager
     /// 合成素材の箱[クリスタル,回転][タテ,ヨコ]
     /// </summary>
     private Dictionary<CrystalInfo, int>[,] synthesisBox = new Dictionary<CrystalInfo, int>[2, 2];
-    
+    private SynthesisUIController UIController;
+
     private void Init()
     {
         synthesisBox = null;
+        UIController = GetComponent<SynthesisUIController>();
+    }
+
+    void Awake()
+    {
+        Init();
     }
 
     // Start is called before the first frame update

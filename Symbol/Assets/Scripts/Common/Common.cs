@@ -32,9 +32,4 @@ public class Common : SingletonMonoBehaviour<Common>
 
     public Data[] GetPrefabData { get { return PrefabData; } }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

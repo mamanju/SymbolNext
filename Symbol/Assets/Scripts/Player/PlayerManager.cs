@@ -24,14 +24,6 @@ public class PlayerManager : MonoBehaviour
     public PlayerStatus status;
 
     /// <summary>
-    /// テスト用スクリプト
-    /// </summary>
-    void TestCrystalSet()
-    {
-
-    }
-
-    /// <summary>
     /// プレイヤー情報(管理)
     /// </summary>
     public PlayerStatus GetStatus{ get { return status; }}

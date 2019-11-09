@@ -6,7 +6,7 @@ using UnityEngine.UI;
 /// <summary>
 /// 合成UIスクリプト
 /// </summary>
-public class SynthesisUI : MonoBehaviour
+public class SynthesisUIController : MonoBehaviour
 {
     // 持ち物クリスタル
     [SerializeField]
@@ -20,40 +20,34 @@ public class SynthesisUI : MonoBehaviour
 
     private GameObject clickObject;
 
-    void SetInfo() {
+    void Awake()
+    {
+        
+    }
+
+    public void SetInfo(Dictionary<CrystalInfo,int> bag) {
         int setCount = 0;
-        PlayerStatus status = player.GetComponent<PlayerManager>().GetStatus;
-        if(status.CrystalBag.Count == 0)
+        if(bag.Count == 0)
         {
             // バッグに何もなかった時の処理
             return;
         }
 
         // 1個以上
-        foreach (var i in status.CrystalBag)
+        // UIにクリスタル情報と数を追加、UIを情報内のiconに設定
+        foreach (var i in bag)
         {
             setCount++;
-            GameObject crystal = Resources.Load("Prefabs/CrystalPanel") as GameObject;
-            Instantiate(crystal, crystalUIMask.transform.GetChild(0));
+            GameObject crystal = Instantiate((GameObject)Resources.Load("Prefabs/CrystalPanel"), crystalUIMask.transform.GetChild(0));
+            float posX = (crystalUIMask.GetComponent<RectTransform>().sizeDelta.x * 0.5f + crystal.GetComponent<RectTransform>().sizeDelta.x * 0.5f) * -1;
             Vector2 firstPos = new Vector2(crystalUIMask.GetComponent<RectTransform>().sizeDelta.x * 0.5f,0);
-            crystal.transform.position = new Vector2(firstPos.x + (crystal.GetComponent<RectTransform>().sizeDelta.x * 0.5f) * setCount,0);
+            crystal.transform.position = new Vector2(posX + crystal.GetComponent<RectTransform>().sizeDelta.x * setCount,0);
             crystal.GetComponent<CrystalUIInfo>().Info = i.Key;
+            crystal.GetComponent<CrystalUIInfo>().CrystalCount = i.Value;
+            crystal.GetComponent<Image>().sprite = i.Key.data.icon;
             crystal.GetComponent<Button>().onClick.AddListener(() => ClickCrystalList(crystal));
         }
     }
-
-    void NaraberuTest()
-    {
-        int createCount = 10;
-        for(int i = 1; i <= createCount; i++)
-        {
-            GameObject crystal = Resources.Load("Prefabs/CrystalPanel") as GameObject;
-            Vector2 firstPos = new Vector2(crystalUIMask.GetComponent<RectTransform>().sizeDelta.x * 0.5f, 0);
-            crystal.transform.position = new Vector2(firstPos.x + (crystal.GetComponent<RectTransform>().sizeDelta.x * 0.5f) * i, 0);
-
-        }
-    }
-
 
     void ClickCrystalList(GameObject obj) {
         Debug.Log(obj);

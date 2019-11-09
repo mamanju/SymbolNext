@@ -19,7 +19,7 @@ public class CrystalDataList : MonoBehaviour
     {
         foreach(var i in dataList)
         {
-            crystalData.Add(i.crystalName, i);
+            //crystalData.Add(i.crystalName, i);
         }
     }
 }

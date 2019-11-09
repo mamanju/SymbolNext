@@ -19,20 +19,24 @@ public class SynthesisManager : MonoBehaviour
     // 持ち物クリスタル
     private List<CrystalInfo> crystalBox;
 
+    private PlayerStatus player;
+
     public Dictionary<CrystalInfo, int> GetCrystalBox { get { return playersCrystal; } }
+
+    void Awake()
+    {
+        player = GameObject.Find("Player").GetComponent<PlayerManager>().GetStatus;
+    }
 
     /// <summary>
     /// 必要なデータの取り出し
     /// </summary>
     void SetData()
     {
-        PlayerStatus player = GameObject.Find("Player").GetComponent<PlayerManager>().GetStatus;
+        playersCrystal = null;
         Dictionary<CrystalInfo, int> pCrystalBox;
-        pCrystalBox = player.CrystalBag;
-        foreach (var i in pCrystalBox)
-        {
-            playersCrystal.Add(i.Key, i.Value);
-        }
+        playersCrystal = player.CrystalBag;
+        GetComponent<SynthesisUIController>().SetInfo(playersCrystal);
     }
 
     /// <summary>
@@ -46,14 +50,6 @@ public class SynthesisManager : MonoBehaviour
             if (i == null) { continue; }
             playersCrystal.Remove(i);
         }    
-    }
-
-    /// <summary>
-    /// 所持しているクリスタルを取得
-    /// </summary>
-    public void GetHaveCrystals(List<CrystalInfo> bag)
-    {
-        //playersCrystal = bag;
     }
 
     /// <summary>

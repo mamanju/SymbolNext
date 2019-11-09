@@ -18,8 +18,8 @@ public class CrystalInfo : MonoBehaviour
         public enum Type
         {
             wood,
-            Iron,
             Rock,
+            Iron,
             other,
         }
 
@@ -28,7 +28,6 @@ public class CrystalInfo : MonoBehaviour
         /// </summary>
         public Type type;
 
-        public string crystalName;
         public Sprite icon;
         public GameObject model;
     }

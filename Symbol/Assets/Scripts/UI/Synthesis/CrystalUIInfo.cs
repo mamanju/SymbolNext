@@ -8,18 +8,8 @@ using UnityEngine;
 public class CrystalUIInfo : MonoBehaviour
 {
     private CrystalInfo info;
+    private int crystalCount = 0;
 
     public CrystalInfo Info { get => info; set => info = value; }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public int CrystalCount { get => crystalCount; set => crystalCount = value; }
 }
