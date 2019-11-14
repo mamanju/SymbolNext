@@ -10,47 +10,69 @@ public class SynthesisUIController : MonoBehaviour
 {
     // 持ち物クリスタル
     [SerializeField]
-    private GameObject crystalBoxUI;
+    private Transform crystalBoxUI;
 
     [SerializeField]
-    private GameObject crystalUIMask;
+    private Image crystalUIMask;
 
     [SerializeField]
-    private GameObject player;
+    private PlayerManager player;
+
+    [SerializeField]
+    private Canvas canvas;
 
     private GameObject clickObject;
 
-    void Awake()
-    {
-        
-    }
-
-    public void SetInfo(Dictionary<CrystalInfo,int> bag) {
+    public void SetInfo(Dictionary<CrystalInfo.Data,int> bag) {
         int setCount = 0;
-        if(bag.Count == 0)
+        if(bag == null)
         {
             // バッグに何もなかった時の処理
+            Debug.Log("ナニモナイヨ");
             return;
         }
 
+        Debug.Log("ナニカアッタヨ");
         // 1個以上
         // UIにクリスタル情報と数を追加、UIを情報内のiconに設定
         foreach (var i in bag)
         {
-            setCount++;
             GameObject crystal = Instantiate((GameObject)Resources.Load("Prefabs/CrystalPanel"), crystalUIMask.transform.GetChild(0));
-            float posX = (crystalUIMask.GetComponent<RectTransform>().sizeDelta.x * 0.5f + crystal.GetComponent<RectTransform>().sizeDelta.x * 0.5f) * -1;
-            Vector2 firstPos = new Vector2(crystalUIMask.GetComponent<RectTransform>().sizeDelta.x * 0.5f,0);
-            crystal.transform.position = new Vector2(posX + crystal.GetComponent<RectTransform>().sizeDelta.x * setCount,0);
+            float UIWidth = crystal.GetComponent<RectTransform>().sizeDelta.x;
+            float maskWidth = crystalUIMask.GetComponent<RectTransform>().sizeDelta.x;
+            Vector2 firstPos = new Vector2(maskWidth * 0.5f * -1 + UIWidth * 0.5f,0);
+            crystal.transform.localPosition = new Vector2(firstPos.x + UIWidth * setCount,0);
             crystal.GetComponent<CrystalUIInfo>().Info = i.Key;
             crystal.GetComponent<CrystalUIInfo>().CrystalCount = i.Value;
-            crystal.GetComponent<Image>().sprite = i.Key.data.icon;
-            crystal.GetComponent<Button>().onClick.AddListener(() => ClickCrystalList(crystal));
+            crystal.GetComponent<Image>().sprite = i.Key.icon;
+            crystal.GetComponent<Button>().onClick.AddListener(() => ClickCrystalList(crystal.GetComponent<Image>()));
+            setCount++;
         }
     }
 
-    void ClickCrystalList(GameObject obj) {
+    /// <summary>
+    /// クリスタル選択
+    /// </summary>
+    /// <param name="obj">クリックしたオブジェクト</param>
+    void ClickCrystalList(Image obj) {
         Debug.Log(obj);
+        if (clickObject != null) {
+            clickObject.GetComponent<Image>().sprite = obj.sprite;
+            clickObject.GetComponent<CatchingCrystalMove>().CatchData = obj.GetComponent<CrystalUIInfo>().Info;
+            clickObject.GetComponent<CatchingCrystalMove>().CrystalRotation = 0;
+            clickObject.transform.rotation = Quaternion.identity;
+            return;
+        }
+        clickObject = Instantiate(Resources.Load("Prefabs/CatchCrystal") as GameObject, canvas.transform);
+        clickObject.GetComponent<Image>().sprite = obj.sprite;
+        clickObject.transform.position = Input.mousePosition;
+    }
+
+    /// <summary>
+    /// 合成マスクリック時
+    /// </summary>
+    public void ClickBox() {
+
     }
 
     /// <summary>

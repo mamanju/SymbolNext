@@ -9,26 +9,36 @@ public class CatchingCrystalMove : MonoBehaviour
 {
     //0から時計回りに、最大3
     private int crystalRotation;
+    private CrystalInfo.Data catchData;
 
-    public int GetCrystalRotaion { get { return crystalRotation; } }
+    public CrystalInfo.Data CatchData { get => catchData; set => catchData = value; }
+    public int CrystalRotation { get => crystalRotation; set => crystalRotation = value; }
+
     void Update()
     {
-        transform.localPosition = Input.mousePosition;
+        transform.position = Input.mousePosition;
         // クリスタルの回転
+        if (Input.GetKeyDown(KeyCode.A)) {
+            RotateCrystal(-1);
+        }else if (Input.GetKeyDown(KeyCode.D)) {
+            RotateCrystal(1);
+        }
     }
 
     /// <summary>
     /// クリスタルの回転
     /// </summary>
-    private void RotateCrystal()
+    private void RotateCrystal(int dir)
     {
-        crystalRotation++;
-        if(crystalRotation > 3)
+        CrystalRotation += dir;
+        if(CrystalRotation > 3)
         {
-            crystalRotation = 0;
-        }else if(crystalRotation < 0)
+            CrystalRotation = 0;
+        }else if(CrystalRotation < 0)
         {
-            crystalRotation = 3;
+            CrystalRotation = 3;
         }
+        Debug.Log(CrystalRotation);
+        transform.Rotate(0, 0, -90 * dir);
     }
 }

@@ -7,9 +7,9 @@ using UnityEngine;
 /// </summary>
 public class CrystalUIInfo : MonoBehaviour
 {
-    private CrystalInfo info;
+    private CrystalInfo.Data info;
     private int crystalCount = 0;
 
-    public CrystalInfo Info { get => info; set => info = value; }
+    public CrystalInfo.Data Info { get => info; set => info = value; }
     public int CrystalCount { get => crystalCount; set => crystalCount = value; }
 }

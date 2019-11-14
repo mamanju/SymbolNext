@@ -8,7 +8,7 @@ using UnityEngine;
 public class CrystalDataList : MonoBehaviour
 {
     public CrystalInfo.Data[] dataList;
-    private Dictionary<string, CrystalInfo.Data> crystalData;
+    private Dictionary<string, CrystalInfo.Data> crystalData = new Dictionary<string, CrystalInfo.Data>();
 
     /// <summary>
     /// クリスタルデータ参照変数
@@ -19,7 +19,7 @@ public class CrystalDataList : MonoBehaviour
     {
         foreach(var i in dataList)
         {
-            //crystalData.Add(i.crystalName, i);
+            CrystalData.Add(i.form, i);
         }
     }
 }

@@ -12,7 +12,7 @@ public struct PlayerStatus
     public int Hp;
     public int Attack;
 
-    public Dictionary<CrystalInfo, int> CrystalBag;
+    public Dictionary<CrystalInfo.Data, int> CrystalBag;
 
 }
 
@@ -35,5 +35,21 @@ public class PlayerManager : MonoBehaviour
     public void ApplyStatus(PlayerStatus data)
     {
         status = data;
+    }
+
+    [SerializeField]
+    private CrystalDataList dataList;
+
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            Dictionary<CrystalInfo.Data, int> tempData = new Dictionary<CrystalInfo.Data, int>();
+            foreach(var i in dataList.CrystalData) {
+                tempData.Add(i.Value, 1);
+            }
+            PlayerStatus pStatus = new PlayerStatus();
+            pStatus.CrystalBag = tempData;
+            ApplyStatus(pStatus);
+            Debug.Log("データイレタヨ");
+        }
     }
 }

@@ -8,7 +8,7 @@ using UnityEngine;
 public class SynthesisManager : MonoBehaviour
 {
     //プレイヤーが所持しているクリスタル
-    private Dictionary<CrystalInfo, int> playersCrystal;
+    private Dictionary<CrystalInfo.Data, int> playersCrystal;
     private List<int> crystalStock;
 
     // クリスタルをつかんでるかどうかの状態(0:Default、1:Catch)
@@ -19,13 +19,21 @@ public class SynthesisManager : MonoBehaviour
     // 持ち物クリスタル
     private List<CrystalInfo> crystalBox;
 
-    private PlayerStatus player;
+    [SerializeField]
+    protected PlayerManager player;
 
-    public Dictionary<CrystalInfo, int> GetCrystalBox { get { return playersCrystal; } }
+    public Dictionary<CrystalInfo.Data, int> GetCrystalBox { get { return playersCrystal; } }
 
     void Awake()
     {
-        player = GameObject.Find("Player").GetComponent<PlayerManager>().GetStatus;
+         
+    }
+
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.LeftShift)) {
+            SetData();
+        }
+        
     }
 
     /// <summary>
@@ -34,8 +42,8 @@ public class SynthesisManager : MonoBehaviour
     void SetData()
     {
         playersCrystal = null;
-        Dictionary<CrystalInfo, int> pCrystalBox;
-        playersCrystal = player.CrystalBag;
+        PlayerStatus pStatus = player.GetStatus;
+        playersCrystal = pStatus.CrystalBag;
         GetComponent<SynthesisUIController>().SetInfo(playersCrystal);
     }
 
@@ -48,7 +56,7 @@ public class SynthesisManager : MonoBehaviour
         foreach(var i in box)
         {
             if (i == null) { continue; }
-            playersCrystal.Remove(i);
+            playersCrystal.Remove(i.data);
         }    
     }
 
@@ -56,7 +64,7 @@ public class SynthesisManager : MonoBehaviour
     /// プレイヤーの持ち物を更新
     /// </summary>
     /// <param name="bag"></param>
-    public void ApplyHaveCrystal(List<CrystalInfo> bag)
+    public void ApplyHaveCrystal()
     {
         //bag = playersCrystal;
     }
