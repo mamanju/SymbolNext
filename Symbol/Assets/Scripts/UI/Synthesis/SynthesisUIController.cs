@@ -26,6 +26,10 @@ public class SynthesisUIController : MonoBehaviour
     private GameObject clickObject;
 
 
+    /// <summary>
+    /// Playerの所持クリスタルを合成画面内に表示
+    /// </summary>
+    /// <param name="bag"></param>
     public void SetInfo(Dictionary<CrystalInfo.Data,int> bag) {
         int setCount = 0;
         if(bag == null)
@@ -37,6 +41,7 @@ public class SynthesisUIController : MonoBehaviour
 
         Debug.Log("ナニカアッタヨ");
         // 1個以上
+        // 所持種類分クリスタルを並べる
         // UIにクリスタル情報と数を追加、UIを情報内のiconに設定
         foreach (var i in bag)
         {
@@ -49,11 +54,16 @@ public class SynthesisUIController : MonoBehaviour
             uiInfo.Info = i.Key;
             uiInfo.CrystalCount = i.Value;
             crystal.GetComponent<Image>().sprite = i.Key.icon;
+            crystal.transform.GetComponentInChildren<Text>().text = uiInfo.CrystalCount.ToString();
             crystal.GetComponent<Button>().onClick.AddListener(() => ClickCrystalList(crystal.GetComponent<Image>()));
             setCount++;
         }
     }
 
+    /// <summary>
+    /// つかんだクリスタルの情報をセット
+    /// </summary>
+    /// <param name="crystal"></param>
     void SetCatchData(Image crystal)
     {
         catchCrystalInfo.UIdata = crystal.sprite;
@@ -63,35 +73,59 @@ public class SynthesisUIController : MonoBehaviour
     }
 
     /// <summary>
+    /// 初めてつかんだ時に呼ばれる
+    /// </summary>
+    /// <param name="_touchCrystal"></param>
+    private void GenerateCrystal(Image _touchCrystal)
+    {
+        synManager.CatchFlag = true;
+        clickObject = Instantiate(Resources.Load("Prefabs/CatchCrystal") as GameObject, _touchCrystal.transform.root);
+        clickObject.transform.position = Input.mousePosition;
+    }
+
+    /// <summary>
     /// クリスタル選択
     /// </summary>
-    /// <param name="touch">クリックしたオブジェクト</param>
-    public void ClickCrystalList(Image touch) {
+    /// <param name="_touch">クリックしたオブジェクト</param>
+    public void ClickCrystalList(Image _touch) {
+        // 何もつかんでいない時は、新たに生成
         if (!synManager.CatchFlag) {
-            synManager.CatchFlag = true;
-            clickObject = Instantiate(Resources.Load("Prefabs/CatchCrystal") as GameObject, touch.transform.root);
-            clickObject.GetComponent<Image>().sprite = touch.sprite;
-            clickObject.transform.position = Input.mousePosition;
+            GenerateCrystal(_touch);
             synManager.ApplyCatchCrystal(catchCrystalInfo);
-            SetCatchData(touch);
-            return;
         }
-        
-        clickObject.GetComponent<Image>().sprite = touch.sprite;
-        clickObject.GetComponent<CatchingCrystalMove>().CrystalRotation = 0;
-        clickObject.transform.rotation = Quaternion.identity;
-        SetCatchData(touch);
-        synManager.ApplyCatchCrystal(catchCrystalInfo);
+        else　// つかんでた場合は切り替え
+        {
+            clickObject.GetComponent<CatchingCrystalMove>().ChangeCatchCrystal();
+        }
 
-        
+        // それ以降は情報更新とUI切り替え
+        clickObject.GetComponent<Image>().sprite = _touch.sprite;
+        SetCatchData(_touch);
+        synManager.ApplyCatchCrystal(catchCrystalInfo);
+        clickObject.GetComponent<CatchingCrystalMove>().CatchData = synManager.CatchingCrystal;
+        // つかんだクリスタルの数を1減らす
+    }
+
+    public void ChangeCatchCrystal(Image _catchObj)
+    {
+        _catchObj.GetComponent<CatchingCrystalMove>().CrystalRotation = 1;
+        _catchObj.transform.rotation = Quaternion.identity;
+        // つかんでいたクリスタルの数を1増やす
+        // つかんだクリスタルの数を1減らす
     }
 
     /// <summary>
     /// 合成マスクリック時
     /// </summary>
     public void ClickBox(GameObject me) {
-        SynthesisBoxData boxData = me.GetComponent<SynthesisBoxData>();
-        boxData.GetCatchingData(synManager.CatchingCrystal);
+        if (clickObject)
+        {
+            SynthesisBoxData boxData = me.GetComponent<SynthesisBoxData>();
+            boxData.GetCatchingData(synManager.CatchingCrystal);
+            clickObject.GetComponent<CatchingCrystalMove>().RemoveCatchData();
+            clickObject = null;
+            synManager.CatchFlag = false;
+        }
     }
 
     // つかんでる素材の回転

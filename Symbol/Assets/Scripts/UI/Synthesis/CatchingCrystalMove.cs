@@ -7,19 +7,23 @@ using UnityEngine;
 /// </summary>
 public class CatchingCrystalMove : MonoBehaviour
 {
-    //0から時計回りに、最大3
-    private int crystalRotation;
+    private int crystalRotation = 1;
     private CatchingCrystal catchData;
     private SynthesisManager synManager;
 
+    /// <summary>
+    /// つかんでいるクリスタルの情報
+    /// </summary>
     public CatchingCrystal CatchData { get { return catchData; } set { catchData = value; } }
 
+    /// <summary>
+    /// 1から時計回りに、最大4
+    /// </summary>
     public int CrystalRotation { get => crystalRotation; set => crystalRotation = value; }
 
     void Start()
     {
         synManager = GameObject.Find("SynthesisScript").GetComponent<SynthesisManager>();
-        catchData = synManager.CatchingCrystal;
     }
 
     void Update()
@@ -34,21 +38,39 @@ public class CatchingCrystalMove : MonoBehaviour
     }
 
     /// <summary>
+    /// クリスタルを離す度に呼ばれる、つかんだObjectの削除
+    /// </summary>
+    public void RemoveCatchData()
+    {
+        synManager.CatchingCrystal = new CatchingCrystal();
+        Destroy(gameObject);
+    }
+
+    /// <summary>
+    /// 別のクリスタルをつかんだ時の処理
+    /// </summary>
+    public void ChangeCatchCrystal()
+    {
+        crystalRotation = 1;
+        transform.rotation = Quaternion.identity;
+        // つかんでいたクリスタルの数を1増やす
+    }
+
+    /// <summary>
     /// クリスタルの回転
     /// </summary>
-    private void RotateCrystal(int dir)
+    private void RotateCrystal(int _dir)
     {
-        catchData.dir += dir;
-        
-        if(catchData.dir > 3)
+        catchData.dir += _dir;
+        if(catchData.dir > 4)
         {
-            catchData.dir = 0;
-        }else if(catchData.dir < 0)
+            catchData.dir = 1;
+        }else if(catchData.dir < 1)
         {
-            catchData.dir = 3;
+            catchData.dir = 4;
         }
-        Debug.Log(catchData.dir);
-        transform.Rotate(0, 0, -90 * dir);
+        transform.Rotate(0, 0, -90 * _dir);
+
         synManager.ApplyCatchCrystal(catchData);
     }
 }

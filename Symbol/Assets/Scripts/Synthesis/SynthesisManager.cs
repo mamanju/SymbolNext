@@ -34,7 +34,7 @@ public class SynthesisManager : MonoBehaviour
     [SerializeField]
     protected PlayerManager player;
 
-    public Dictionary<CrystalInfo.Data, int> GetCrystalBox { get { return playersCrystal; } }
+    public Dictionary<CrystalInfo.Data, int> CrystalBox { get { return playersCrystal; } set { playersCrystal = value; } }
 
     public CatchingCrystal CatchingCrystal { get => catchingCrystal; set => catchingCrystal = value; }
     public bool CatchFlag { get => catchFlag; set => catchFlag = value; }
