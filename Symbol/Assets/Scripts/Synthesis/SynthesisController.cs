@@ -5,13 +5,16 @@ using UnityEngine;
 /// <summary>
 /// 合成コントローラー
 /// </summary>
-public class SynthesisController : SynthesisManager
+public class SynthesisController : MonoBehaviour
 {
     /// <summary>
     /// 合成素材の箱[クリスタル,回転][タテ,ヨコ]
     /// </summary>
     private Dictionary<CrystalInfo, int>[,] synthesisBox = new Dictionary<CrystalInfo, int>[2, 2];
     private SynthesisUIController UIController;
+
+    [SerializeField]
+    private SynthesisManager sManager;
 
     private void Init()
     {
@@ -22,12 +25,6 @@ public class SynthesisController : SynthesisManager
     void Awake()
     {
         Init();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
     }
 
     /// <summary>

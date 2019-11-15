@@ -3,6 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
+/// つかんでるクリスタル情報(オブジェクト、クリスタルの情報、回転)
+/// </summary>
+public struct CatchingCrystal
+{
+    public Sprite UIdata;
+    public CrystalInfo.Data crysData;
+    public int dir;
+}
+
+/// <summary>
 /// 合成の管理
 /// </summary>
 public class SynthesisManager : MonoBehaviour
@@ -14,8 +24,10 @@ public class SynthesisManager : MonoBehaviour
     // クリスタルをつかんでるかどうかの状態(0:Default、1:Catch)
     private bool catchFlag = false;
 
+    private CatchingCrystal catchingCrystal;
+
     // 今つかんでるクリスタル
-    private GameObject catchingCrystal;
+    //private GameObject catchingCrystal;
     // 持ち物クリスタル
     private List<CrystalInfo> crystalBox;
 
@@ -24,16 +36,13 @@ public class SynthesisManager : MonoBehaviour
 
     public Dictionary<CrystalInfo.Data, int> GetCrystalBox { get { return playersCrystal; } }
 
-    void Awake()
-    {
-         
-    }
+    public CatchingCrystal CatchingCrystal { get => catchingCrystal; set => catchingCrystal = value; }
+    public bool CatchFlag { get => catchFlag; set => catchFlag = value; }
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.LeftShift)) {
             SetData();
         }
-        
     }
 
     /// <summary>
@@ -64,8 +73,18 @@ public class SynthesisManager : MonoBehaviour
     /// プレイヤーの持ち物を更新
     /// </summary>
     /// <param name="bag"></param>
-    public void ApplyHaveCrystal()
+    public void ApplyCatchCrystal(CatchingCrystal catchData)
     {
-        //bag = playersCrystal;
+        catchingCrystal = catchData;
+    }
+
+    /// <summary>
+    /// 合成マスに情報を入れる
+    /// </summary>
+    /// <param name="data"></param>
+    /// <param name="dir"></param>
+    public void SettingBox(CrystalInfo.Data data,int dir)
+    {
+
     }
 }

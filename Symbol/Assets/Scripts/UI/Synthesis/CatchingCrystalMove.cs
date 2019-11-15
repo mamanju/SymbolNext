@@ -9,10 +9,18 @@ public class CatchingCrystalMove : MonoBehaviour
 {
     //0から時計回りに、最大3
     private int crystalRotation;
-    private CrystalInfo.Data catchData;
+    private CatchingCrystal catchData;
+    private SynthesisManager synManager;
 
-    public CrystalInfo.Data CatchData { get => catchData; set => catchData = value; }
+    public CatchingCrystal CatchData { get { return catchData; } set { catchData = value; } }
+
     public int CrystalRotation { get => crystalRotation; set => crystalRotation = value; }
+
+    void Start()
+    {
+        synManager = GameObject.Find("SynthesisScript").GetComponent<SynthesisManager>();
+        catchData = synManager.CatchingCrystal;
+    }
 
     void Update()
     {
@@ -30,15 +38,17 @@ public class CatchingCrystalMove : MonoBehaviour
     /// </summary>
     private void RotateCrystal(int dir)
     {
-        CrystalRotation += dir;
-        if(CrystalRotation > 3)
+        catchData.dir += dir;
+        
+        if(catchData.dir > 3)
         {
-            CrystalRotation = 0;
-        }else if(CrystalRotation < 0)
+            catchData.dir = 0;
+        }else if(catchData.dir < 0)
         {
-            CrystalRotation = 3;
+            catchData.dir = 3;
         }
-        Debug.Log(CrystalRotation);
+        Debug.Log(catchData.dir);
         transform.Rotate(0, 0, -90 * dir);
+        synManager.ApplyCatchCrystal(catchData);
     }
 }
