@@ -1327,22 +1327,27 @@ MonoBehaviour:
   dataList:
   - form: a
     type: 0
+    ID: 1
     icon: {fileID: 21300000, guid: 4f43ea6d6cdc54c4e9dff55ef31a8763, type: 3}
     model: {fileID: 8726205398164966962, guid: 111f59f8cdfa48b42b3fd510581c172b, type: 3}
   - form: b
     type: 0
+    ID: 2
     icon: {fileID: 21300000, guid: d809e288045befc499b998355794156c, type: 3}
     model: {fileID: 2503563147817138009, guid: 7a838dd03a4291d4c997ceee6bfb354f, type: 3}
   - form: c
     type: 0
+    ID: 3
     icon: {fileID: 21300000, guid: 28ee28c4288b13d40a95a64a0e864324, type: 3}
     model: {fileID: 7928658839058473778, guid: 085502069b9d3d441afc4b0ac2a9bd76, type: 3}
   - form: d
     type: 0
+    ID: 4
     icon: {fileID: 21300000, guid: f0c041dad61a9e64ab1c5549aeb6cd29, type: 3}
     model: {fileID: 1535783391713389618, guid: 4ceede1a6fcf69f4693243864e4456dd, type: 3}
   - form: e
     type: 0
+    ID: 5
     icon: {fileID: 21300000, guid: 1943d580ce201e64e9a290fd26e9ac04, type: 3}
     model: {fileID: 1535783391713389618, guid: 360de615cb0038243a68dcadeceefd91, type: 3}
 --- !u!4 &626383270
@@ -1519,6 +1524,7 @@ GameObject:
   - component: {fileID: 714605027}
   - component: {fileID: 714605026}
   - component: {fileID: 714605025}
+  - component: {fileID: 714605029}
   m_Layer: 0
   m_Name: SynthesisScript
   m_TagString: Untagged
@@ -1541,7 +1547,6 @@ MonoBehaviour:
   crystalBoxUI: {fileID: 384720727}
   crystalUIMask: {fileID: 1155918528}
   player: {fileID: 1218422658}
-  synManager: {fileID: 714605026}
 --- !u!114 &714605026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1567,7 +1572,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21c3d095126c60b4a982f92d3edf142c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sManager: {fileID: 714605026}
 --- !u!4 &714605028
 Transform:
   m_ObjectHideFlags: 0
@@ -1582,6 +1586,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &714605029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714605024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b9a67e06b8168e448a7dd38970aedb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &826323950
 GameObject:
   m_ObjectHideFlags: 0
