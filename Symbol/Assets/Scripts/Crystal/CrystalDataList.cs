@@ -17,6 +17,7 @@ public class CrystalDataList : MonoBehaviour
 
     void Awake()
     {
+        // デバッグ用
         foreach(var i in dataList)
         {
             CrystalData.Add(i.form, i);

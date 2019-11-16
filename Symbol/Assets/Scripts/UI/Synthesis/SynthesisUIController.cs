@@ -6,7 +6,7 @@ using UnityEngine.UI;
 /// <summary>
 /// 合成UIスクリプト
 /// </summary>
-public class SynthesisUIController : MonoBehaviour
+public class SynthesisUIController : SynthesisMaster
 {
     // 持ち物クリスタル
     [SerializeField]
@@ -18,21 +18,20 @@ public class SynthesisUIController : MonoBehaviour
     [SerializeField]
     private PlayerManager player;
 
-    [SerializeField]
-    private SynthesisManager synManager;
-
-    private CatchingCrystal catchCrystalInfo;
-
     private GameObject clickObject;
 
+    public void Init()
+    {
+        clickObject = null;
+    }
 
     /// <summary>
     /// Playerの所持クリスタルを合成画面内に表示
     /// </summary>
-    /// <param name="bag"></param>
-    public void SetInfo(Dictionary<CrystalInfo.Data,int> bag) {
+    /// <param name="_bag"></param>
+    public void SetInfo(Dictionary<CrystalInfo.Data,int> _bag) {
         int setCount = 0;
-        if(bag == null)
+        if(_bag == null)
         {
             // バッグに何もなかった時の処理
             Debug.Log("ナニモナイヨ");
@@ -43,13 +42,14 @@ public class SynthesisUIController : MonoBehaviour
         // 1個以上
         // 所持種類分クリスタルを並べる
         // UIにクリスタル情報と数を追加、UIを情報内のiconに設定
-        foreach (var i in bag)
+        foreach (var i in _bag)
         {
             GameObject crystal = Instantiate((GameObject)Resources.Load("Prefabs/CrystalPanel"), crystalUIMask.transform.GetChild(0));
             float UIWidth = crystal.GetComponent<RectTransform>().sizeDelta.x;
             float maskWidth = crystalUIMask.GetComponent<RectTransform>().sizeDelta.x;
             CrystalUIInfo uiInfo = crystal.GetComponent<CrystalUIInfo>();
             Vector2 firstPos = new Vector2(maskWidth * 0.5f * -1 + UIWidth * 0.5f,0);
+
             crystal.transform.localPosition = new Vector2(firstPos.x + UIWidth * setCount,0);
             uiInfo.Info = i.Key;
             uiInfo.CrystalCount = i.Value;
@@ -61,15 +61,40 @@ public class SynthesisUIController : MonoBehaviour
     }
 
     /// <summary>
+    /// クリスタル選択
+    /// </summary>
+    /// <param name="_touch">クリックしたオブジェクト</param>
+    public void ClickCrystalList(Image _touch)
+    {
+        // 何もつかんでいない時は、新たに生成
+        if (!synthesisManager.CatchFlag)
+        {
+            GenerateCrystal(_touch);
+        }
+        else　// つかんでた場合は切り替え
+        {
+            ChangeCatchCrystal(_touch);
+        }
+
+        clickObject.GetComponent<Image>().sprite = _touch.sprite;
+        SetCatchCrystalData(_touch);
+        clickObject.GetComponent<CatchingCrystalController>().CatchData = synthesisManager.CatchingCrystal;
+
+    }
+
+    /// <summary>
     /// つかんだクリスタルの情報をセット
     /// </summary>
     /// <param name="crystal"></param>
-    void SetCatchData(Image crystal)
+    void SetCatchCrystalData(Image crystal)
     {
-        catchCrystalInfo.UIdata = crystal.sprite;
-        catchCrystalInfo.dir = 0;
-        catchCrystalInfo.crysData = crystal.GetComponent<CrystalUIInfo>().Info;
-        synManager.CatchingCrystal = catchCrystalInfo;
+        CatchingCrystalInfo info = new CatchingCrystalInfo();
+        info.UIdata = crystal.GetComponent<CrystalUIInfo>().Info.icon;
+        info.crysData = crystal.GetComponent<CrystalUIInfo>().Info;
+        info.dir = 1;
+        synthesisController.CatchCrystal(info);
+        crystal.sprite = synthesisManager.CatchingCrystal.UIdata;
+        crystal.transform.rotation = Quaternion.identity;
     }
 
     /// <summary>
@@ -78,38 +103,22 @@ public class SynthesisUIController : MonoBehaviour
     /// <param name="_touchCrystal"></param>
     private void GenerateCrystal(Image _touchCrystal)
     {
-        synManager.CatchFlag = true;
-        clickObject = Instantiate(Resources.Load("Prefabs/CatchCrystal") as GameObject, _touchCrystal.transform.root);
-        clickObject.transform.position = Input.mousePosition;
+        GameObject catchUI = new GameObject();
+        synthesisManager.CatchFlag = true;
+        catchUI = Instantiate(Resources.Load("Prefabs/CatchCrystal") as GameObject, _touchCrystal.transform.root);
+        catchUI.transform.position = Input.mousePosition;
+        clickObject = catchUI;
+        
     }
 
     /// <summary>
-    /// クリスタル選択
+    /// クリスタルを持ち替えた時の処理
     /// </summary>
-    /// <param name="_touch">クリックしたオブジェクト</param>
-    public void ClickCrystalList(Image _touch) {
-        // 何もつかんでいない時は、新たに生成
-        if (!synManager.CatchFlag) {
-            GenerateCrystal(_touch);
-            synManager.ApplyCatchCrystal(catchCrystalInfo);
-        }
-        else　// つかんでた場合は切り替え
-        {
-            clickObject.GetComponent<CatchingCrystalMove>().ChangeCatchCrystal();
-        }
-
-        // それ以降は情報更新とUI切り替え
-        clickObject.GetComponent<Image>().sprite = _touch.sprite;
-        SetCatchData(_touch);
-        synManager.ApplyCatchCrystal(catchCrystalInfo);
-        clickObject.GetComponent<CatchingCrystalMove>().CatchData = synManager.CatchingCrystal;
-        // つかんだクリスタルの数を1減らす
-    }
-
+    /// <param name="_catchObj"></param>
     public void ChangeCatchCrystal(Image _catchObj)
     {
-        _catchObj.GetComponent<CatchingCrystalMove>().CrystalRotation = 1;
-        _catchObj.transform.rotation = Quaternion.identity;
+        clickObject.GetComponent<CatchingCrystalController>().CrystalRotation = 1;
+        clickObject.transform.rotation = Quaternion.identity;
         // つかんでいたクリスタルの数を1増やす
         // つかんだクリスタルの数を1減らす
     }
@@ -117,15 +126,14 @@ public class SynthesisUIController : MonoBehaviour
     /// <summary>
     /// 合成マスクリック時
     /// </summary>
-    public void ClickBox(GameObject me) {
-        if (clickObject)
-        {
-            SynthesisBoxData boxData = me.GetComponent<SynthesisBoxData>();
-            boxData.GetCatchingData(synManager.CatchingCrystal);
-            clickObject.GetComponent<CatchingCrystalMove>().RemoveCatchData();
-            clickObject = null;
-            synManager.CatchFlag = false;
-        }
+    public void ClickBox(GameObject _me) {
+        if (!synthesisManager.CatchFlag) { return; }
+        
+        SynthesisBoxData boxData = _me.GetComponent<SynthesisBoxData>();
+        boxData.ClickSynthesisBox(synthesisManager.CatchingCrystal);
+        clickObject.GetComponent<CatchingCrystalController>().RemoveCatchData();
+        clickObject = null;
+        synthesisManager.CatchFlag = false;
     }
 
     // つかんでる素材の回転

@@ -5,37 +5,19 @@ using UnityEngine;
 /// <summary>
 /// 合成コントローラー
 /// </summary>
-public class SynthesisController : MonoBehaviour
+public class SynthesisController : SynthesisMaster
 {
     /// <summary>
     /// 合成素材の箱[クリスタル,回転][タテ,ヨコ]
     /// </summary>
     private Dictionary<CrystalInfo, int>[,] synthesisBox = new Dictionary<CrystalInfo, int>[2, 2];
-    private SynthesisUIController UIController;
 
-    [SerializeField]
-    private SynthesisManager sManager;
+    //レシピと参照するための変数
+    private int[] referenceRecipe;
 
-    private void Init()
+    public void Init()
     {
         synthesisBox = null;
-        UIController = GetComponent<SynthesisUIController>();
-    }
-
-    void Awake()
-    {
-        Init();
-    }
-
-    /// <summary>
-    /// 選んだクリスタルを入れる
-    /// </summary>
-    /// <param name="crystal">クリスタル情報[クリスタル,回転]</param>
-    /// <param name="boxPos">箱の位置[タテ,ヨコ]</param>
-    public void ChooseCrystal(Dictionary<CrystalInfo,int> crystal,int[] boxPos)
-    {
-        synthesisBox[boxPos[0], boxPos[1]] = crystal;
-        // 所持してるクリスタルから選んだクリスタルの数を減らす
     }
 
     /// <summary>
@@ -44,6 +26,24 @@ public class SynthesisController : MonoBehaviour
     public void DeleteCrystal()
     {
         // 所持してるクリスタルから選んだクリスタルの数を戻す
+    }
+
+    /// <summary>
+    /// クリスタルをつかむ
+    /// </summary>
+    public void CatchCrystal(CatchingCrystalInfo _data)
+    {
+        synthesisManager.ApplyCatchCrystal(_data);
+
+        // つかんだクリスタルの数を1減らす
+    }
+
+    /// <summary>
+    /// クリスタルを離す
+    /// </summary>
+    public void RemoveCrystal()
+    {
+
     }
 
     /// <summary>

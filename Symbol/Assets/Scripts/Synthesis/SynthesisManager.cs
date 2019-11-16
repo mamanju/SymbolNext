@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// つかんでるクリスタル情報(オブジェクト、クリスタルの情報、回転)
 /// </summary>
-public struct CatchingCrystal
+public struct CatchingCrystalInfo
 {
     public Sprite UIdata;
     public CrystalInfo.Data crysData;
@@ -15,31 +15,40 @@ public struct CatchingCrystal
 /// <summary>
 /// 合成の管理
 /// </summary>
-public class SynthesisManager : MonoBehaviour
+public class SynthesisManager : SynthesisMaster
 {
     //プレイヤーが所持しているクリスタル
     private Dictionary<CrystalInfo.Data, int> playersCrystal;
-    private List<int> crystalStock;
 
     // クリスタルをつかんでるかどうかの状態(0:Default、1:Catch)
     private bool catchFlag = false;
 
-    private CatchingCrystal catchingCrystal;
+    private CatchingCrystalInfo catchingCrystal;
 
-    // 今つかんでるクリスタル
-    //private GameObject catchingCrystal;
     // 持ち物クリスタル
-    private List<CrystalInfo> crystalBox;
+    private List<CrystalInfo> crystalBag;
+
+    // 合成の箱
+    private int[] synthesisBox = new int[9];
 
     [SerializeField]
-    protected PlayerManager player;
+    private PlayerManager player;
 
-    public Dictionary<CrystalInfo.Data, int> CrystalBox { get { return playersCrystal; } set { playersCrystal = value; } }
+    public Dictionary<CrystalInfo.Data, int> CrystalBag { get { return playersCrystal; } set { playersCrystal = value; } }
 
-    public CatchingCrystal CatchingCrystal { get => catchingCrystal; set => catchingCrystal = value; }
+    public CatchingCrystalInfo CatchingCrystal { get => catchingCrystal; set => catchingCrystal = value; }
     public bool CatchFlag { get => catchFlag; set => catchFlag = value; }
 
+    public void Init()
+    {
+        crystalBag = null;
+        catchingCrystal = new CatchingCrystalInfo();
+        catchFlag = false;
+        playersCrystal = null;
+    }
+
     void Update() {
+        // デバッグ用
         if (Input.GetKeyDown(KeyCode.LeftShift)) {
             SetData();
         }
@@ -53,16 +62,16 @@ public class SynthesisManager : MonoBehaviour
         playersCrystal = null;
         PlayerStatus pStatus = player.GetStatus;
         playersCrystal = pStatus.CrystalBag;
-        GetComponent<SynthesisUIController>().SetInfo(playersCrystal);
+        synthesisUIController.SetInfo(playersCrystal);
     }
 
     /// <summary>
     /// 合成後に、使ったクリスタルを消費
     /// </summary>
-    /// <param name="box"></param>
-    protected void RemoveCrystal(CrystalInfo[] box)
+    /// <param name="_box"></param>
+    protected void RemoveCrystal(CrystalInfo[] _box)
     {
-        foreach(var i in box)
+        foreach(var i in _box)
         {
             if (i == null) { continue; }
             playersCrystal.Remove(i.data);
@@ -73,17 +82,18 @@ public class SynthesisManager : MonoBehaviour
     /// プレイヤーの持ち物を更新
     /// </summary>
     /// <param name="bag"></param>
-    public void ApplyCatchCrystal(CatchingCrystal catchData)
+    public void ApplyCatchCrystal(CatchingCrystalInfo _catchData)
     {
-        catchingCrystal = catchData;
+        catchingCrystal = _catchData;
+        // つかんだクリスタルの数を1減らす
     }
 
     /// <summary>
     /// 合成マスに情報を入れる
     /// </summary>
-    /// <param name="data"></param>
-    /// <param name="dir"></param>
-    public void SettingBox(CrystalInfo.Data data,int dir)
+    /// <param name="_data"></param>
+    /// <param name="_dir"></param>
+    public void SettingBox(CrystalInfo.Data _data,int _dir)
     {
 
     }

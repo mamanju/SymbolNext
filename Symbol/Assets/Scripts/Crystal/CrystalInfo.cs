@@ -28,6 +28,7 @@ public class CrystalInfo : MonoBehaviour
         /// </summary>
         public Type type;
 
+        public int ID;
         public Sprite icon;
         public GameObject model;
     }

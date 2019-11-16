@@ -5,26 +5,55 @@ using UnityEngine.UI;
 
 public class SynthesisBoxData : MonoBehaviour
 {
-    private CatchingCrystal setCrystalData;
+    private CatchingCrystalInfo settingCrystalData;
 
-    public CatchingCrystal SetCrystalData { get => setCrystalData; set => setCrystalData = value; }
+    public CatchingCrystalInfo SetingCrystalData { get => settingCrystalData; set => settingCrystalData = value; }
 
-    public void RefleshBoxData(Image icon)
+    private bool crystalSetFlag = false;
+
+    private SynthesisManager synManager;
+
+    public void RefleshBoxData(Image _icon)
     {
-        icon.sprite = null;
-        icon.transform.rotation = Quaternion.identity;
+        _icon.sprite = null;
+        _icon.transform.rotation = Quaternion.identity;
     }
 
     /// <summary>
     /// 合成マスクリック時
     /// </summary>
-    public void GetCatchingData(CatchingCrystal data)
+    public void ClickSynthesisBox(CatchingCrystalInfo _data)
+    {
+        if (!crystalSetFlag)
+        {
+            SetCrystalData(_data);
+        }
+        else
+        {
+            GetCrystalData();
+        }
+    }
+
+    /// <summary>
+    /// つかんでいるクリスタルをセットする
+    /// </summary>
+    /// <param name="_data"></param>
+    void SetCrystalData(CatchingCrystalInfo _data)
     {
         Image icon = transform.GetChild(0).gameObject.GetComponent<Image>();
         RefleshBoxData(icon);
-        SetCrystalData = data;
-        icon.sprite = setCrystalData.UIdata;
-        icon.transform.Rotate(0, 0, 90 * -data.dir);
-        
+        settingCrystalData = _data;
+        icon.sprite = settingCrystalData.UIdata;
+        icon.transform.Rotate(0, 0, 90 * (-_data.dir + 1));
     }
+
+    /// <summary>
+    /// セットされているクリスタルを取り出す
+    /// </summary>
+    void GetCrystalData()
+    {
+        synManager = GameObject.Find("SynthesisScript").GetComponent<SynthesisManager>();
+    }
+
+
 }

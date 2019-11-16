@@ -5,16 +5,16 @@ using UnityEngine;
 /// <summary>
 /// クリスタル選択時にマウスに追従する処理
 /// </summary>
-public class CatchingCrystalMove : MonoBehaviour
+public class CatchingCrystalController : MonoBehaviour
 {
     private int crystalRotation = 1;
-    private CatchingCrystal catchData;
+    private CatchingCrystalInfo catchData;
     private SynthesisManager synManager;
 
     /// <summary>
     /// つかんでいるクリスタルの情報
     /// </summary>
-    public CatchingCrystal CatchData { get { return catchData; } set { catchData = value; } }
+    public CatchingCrystalInfo CatchData { get { return catchData; } set { catchData = value; } }
 
     /// <summary>
     /// 1から時計回りに、最大4
@@ -42,18 +42,8 @@ public class CatchingCrystalMove : MonoBehaviour
     /// </summary>
     public void RemoveCatchData()
     {
-        synManager.CatchingCrystal = new CatchingCrystal();
+        synManager.CatchingCrystal = new CatchingCrystalInfo();
         Destroy(gameObject);
-    }
-
-    /// <summary>
-    /// 別のクリスタルをつかんだ時の処理
-    /// </summary>
-    public void ChangeCatchCrystal()
-    {
-        crystalRotation = 1;
-        transform.rotation = Quaternion.identity;
-        // つかんでいたクリスタルの数を1増やす
     }
 
     /// <summary>
@@ -62,6 +52,7 @@ public class CatchingCrystalMove : MonoBehaviour
     private void RotateCrystal(int _dir)
     {
         catchData.dir += _dir;
+        
         if(catchData.dir > 4)
         {
             catchData.dir = 1;
@@ -70,7 +61,6 @@ public class CatchingCrystalMove : MonoBehaviour
             catchData.dir = 4;
         }
         transform.Rotate(0, 0, -90 * _dir);
-
         synManager.ApplyCatchCrystal(catchData);
     }
 }
