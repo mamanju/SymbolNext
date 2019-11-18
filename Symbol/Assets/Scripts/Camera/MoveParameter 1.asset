@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 30d9bc953925e444fa28617d94a2aec3, type: 3}
-  m_Name: MoveParameter
+  m_Name: MoveParameter 1
   m_EditorClassIdentifier: 
-  sf_setOffSet: {x: 0, y: 10, z: -10}
-  sf_setMaxDistance: 5
+  sf_setOffSet: {x: 0, y: 20, z: -20}
+  sf_setMaxDistance: 10

@@ -24,6 +24,11 @@ public class CameraManager : MonoBehaviour
 
     private bool m_isRootMove = false;
 
+    public Vector3 OffSet
+    {
+        get => m_startMoveCameraPosition;
+    }
+
     public static CameraManager Instance
     {
         get
@@ -41,63 +46,78 @@ public class CameraManager : MonoBehaviour
         }
         else
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
     }
 
     void Start()
+    {
+        Init();
+    }
+
+    /// <summary>
+    /// 初期化関数
+    /// </summary>
+    private void Init()
     {
         m_playerObj = GameObject.FindGameObjectWithTag("Player");
         m_camera = Camera.main;
         m_maxChangeDistance = 0;
         m_isRootMove = false;
         m_OffSet = new Vector3(0, 5, -5);
+        m_startMoveCameraPosition = m_OffSet;
         this.transform.position = m_playerObj.transform.position + m_OffSet;
-
         this.transform.LookAt(m_playerObj.transform.position);
     }
+
     private void FixedUpdate()
     {
         MoveUpdate();
     }
 
+    /// <summary>
+    /// カメラの動きのアップデート関数
+    /// </summary>
     private void MoveUpdate()
     {
+        m_OffSet = m_startMoveCameraPosition;
+        
+        //カメラの移動がある場合Slerpを使い移動させる
         if (m_isRootMove)
         {
             float nowPlayerPositionDistance = Vector3.Distance(m_startMovePlayerPosition, m_playerObj.transform.position);
             float maxDistanceRatio = Mathf.Clamp(nowPlayerPositionDistance / m_maxChangeDistance, 0, 1);
-            //this.transform.position = Vector3.Slerp(m_startMoveCameraPosition, m_finishMoveCameraPosition, maxDistanceRatio);
             m_OffSet = Vector3.Slerp(m_startMoveCameraPosition, m_finishMoveCameraPosition, maxDistanceRatio);
+            if(maxDistanceRatio >= 1)
+            {
+                m_isRootMove = false;
+                m_startMoveCameraPosition = m_OffSet;
+            }
         }
-        Debug.Log(m_playerObj);
         m_camera.transform.position = m_playerObj.transform.position + m_OffSet;
         m_camera.transform.LookAt(m_playerObj.transform.position);
     }
 
-    public void StartCameraMove(Vector3 finishCaeraPosition, float maxChangeDistance, GameObject playerObj)
+    public void StartCameraMove(Vector3 finishOffSet, float maxChangeDistance)
     {
+        // カメラがない場合取得するため
         if (m_camera == null)
         {
             m_camera = Camera.main;
         }
+        m_startMoveCameraPosition = m_OffSet;
 
-        m_startMoveCameraPosition = m_camera.transform.position;
+        m_finishMoveCameraPosition = finishOffSet;
 
-        m_finishMoveCameraPosition = m_OffSet;
-
-        m_startMovePlayerPosition = playerObj.transform.position;
+        m_startMovePlayerPosition = m_playerObj.transform.position;
 
         m_maxChangeDistance = maxChangeDistance;
 
-       // m_playerObj = playerObj;
         m_isRootMove = true;
     }
 
     public void endCameraMove()
     {
 
-        //m_playerObj = null;
-        //m_isRootMove = false;
     }
 }

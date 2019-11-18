@@ -41,9 +41,11 @@ public class PlayerManager : MonoBehaviour
 
     private Vector3 m_movePosition = Vector3.zero;
 
+    [SerializeField] private float checkRayDistance = 0;
+
     [SerializeField] private float m_moveSpeed = 0;
 
-    [SerializeField] private GameObject gameObject = null;
+    [SerializeField] private GameObject m_gameObject = null;
 
     private bool m_isMove = false;
 
@@ -60,12 +62,15 @@ public class PlayerManager : MonoBehaviour
     //    //}
     //}
 
+    /// <summary>
+    /// 移動をまとめたアップデート
+    /// </summary>
     private void MoveUpdate()
     {
         if (!m_isMove) { return; }
         this.transform.position += this.transform.forward * m_moveSpeed * Time.deltaTime;
 
-        if(Vector3.Distance(this.transform.position, m_movePosition) > 1f) { return; }
+        if(Vector3.Distance(this.transform.position, m_movePosition) > 0.1f) { return; }
         m_isMove = false;
         m_movePosition = Vector3.zero;
     }
@@ -77,11 +82,15 @@ public class PlayerManager : MonoBehaviour
         RaycastHit raycast;
 
         if (!Physics.Raycast(ray, out raycast)) { return; }
+
         if(raycast.transform.tag == "Ground")
         {
+            ray = new Ray(raycast.point + Vector3.up * checkRayDistance, Vector3.up * -1);
+            Physics.Raycast(ray, out raycast);
+
             m_movePosition = raycast.point;
             m_isMove = true;
-            gameObject.transform.position = m_movePosition;
+            m_gameObject.transform.position = m_movePosition;
 
             m_movePosition.y = this.transform.position.y;
             this.transform.LookAt(m_movePosition);
@@ -94,7 +103,7 @@ public class PlayerManager : MonoBehaviour
 
             m_movePosition = raycast.point;
             m_isMove = true;
-            gameObject.transform.position = m_movePosition;
+            m_gameObject.transform.position = m_movePosition;
 
             m_movePosition.y = this.transform.position.y;
             this.transform.LookAt(m_movePosition);
