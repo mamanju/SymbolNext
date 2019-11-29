@@ -17,6 +17,15 @@ public struct CatchingCrystalInfo
 /// </summary>
 public class SynthesisManager : SynthesisMaster
 {
+    public enum SynthesisPhase
+    {
+        Choose,
+        Synthesis,
+        Result,
+    }
+    
+    public SynthesisPhase Phase;
+
     //プレイヤーが所持しているクリスタル
     private Dictionary<CrystalInfo.Data, int> playersCrystal;
 
@@ -29,15 +38,22 @@ public class SynthesisManager : SynthesisMaster
     private List<CrystalInfo> crystalBag;
 
     // 合成の箱
-    private int[] synthesisBox = new int[9];
+    private float[] synthesisBox = new float[9];
 
     [SerializeField]
     private PlayerManager player;
+
+    /// <summary>
+    /// 必ず2の倍数
+    /// </summary>
+    [SerializeField]
+    private int maxCrystalRotation;
 
     public Dictionary<CrystalInfo.Data, int> CrystalBag { get { return playersCrystal; } set { playersCrystal = value; } }
 
     public CatchingCrystalInfo CatchingCrystal { get => catchingCrystal; set => catchingCrystal = value; }
     public bool CatchFlag { get => catchFlag; set => catchFlag = value; }
+    public float[] SynthesisBox { get => synthesisBox; set => synthesisBox = value; }
 
     public void Init()
     {
@@ -45,6 +61,11 @@ public class SynthesisManager : SynthesisMaster
         catchingCrystal = new CatchingCrystalInfo();
         catchFlag = false;
         playersCrystal = null;
+
+        if(maxCrystalRotation % 2 != 0 || maxCrystalRotation == 0)
+        {
+            Debug.LogError("クリスタルの最大回転が正しく入力されていません");
+        }
     }
 
     void Update() {

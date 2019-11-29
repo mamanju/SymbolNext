@@ -7,17 +7,13 @@ using UnityEngine;
 /// </summary>
 public class SynthesisController : SynthesisMaster
 {
-    /// <summary>
-    /// 合成素材の箱[クリスタル,回転][タテ,ヨコ]
-    /// </summary>
-    private Dictionary<CrystalInfo, int>[,] synthesisBox = new Dictionary<CrystalInfo, int>[2, 2];
-
+    
     //レシピと参照するための変数
     private int[] referenceRecipe;
 
     public void Init()
     {
-        synthesisBox = null;
+        
     }
 
     /// <summary>
@@ -52,6 +48,7 @@ public class SynthesisController : SynthesisMaster
     public void Synthesis()
     {
         // 合成のフェイズを「合成」に進める
+        synthesisManager.Phase = SynthesisManager.SynthesisPhase.Synthesis;
 
         // 素材合成箱の情報と、レシピを比較
 

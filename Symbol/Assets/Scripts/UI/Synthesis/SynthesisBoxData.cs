@@ -13,6 +13,14 @@ public class SynthesisBoxData : MonoBehaviour
 
     private SynthesisManager synManager;
 
+    [SerializeField]
+    private int boxNum;
+
+    void Start()
+    {
+        synManager = GameObject.Find("SynthesisScript").GetComponent<SynthesisManager>();
+    }
+
     public void RefleshBoxData(Image _icon)
     {
         _icon.sprite = null;
@@ -39,12 +47,50 @@ public class SynthesisBoxData : MonoBehaviour
     /// </summary>
     /// <param name="_data"></param>
     void SetCrystalData(CatchingCrystalInfo _data)
-    {
+    {  
         Image icon = transform.GetChild(0).gameObject.GetComponent<Image>();
         RefleshBoxData(icon);
         settingCrystalData = _data;
+        if (settingCrystalData.crysData.symmetry)
+        {
+            SymmetryMode();
+        }
+        synManager.SynthesisBox[boxNum] = ParseSetNum(settingCrystalData.crysData.ID, settingCrystalData.dir);
         icon.sprite = settingCrystalData.UIdata;
         icon.transform.Rotate(0, 0, 90 * (-_data.dir + 1));
+    }
+
+    /// <summary>
+    /// セットしたクリスタルが対称の場合の処理
+    /// </summary>
+    void SymmetryMode()
+    {
+        if(settingCrystalData.dir == 3)
+        {
+            settingCrystalData.dir = 1;
+        }else if(settingCrystalData.dir == 4)
+        {
+            settingCrystalData.dir = 2;
+        }
+    }
+
+    /// <summary>
+    /// レシピ参照のために数値変換
+    /// </summary>
+    /// <param name="ID"></param>
+    /// <param name="dir"></param>
+    float ParseSetNum(int _ID,int _dir)
+    {
+        float parseNum = 1f;
+        parseNum += _ID * 0.1f;
+        parseNum += boxNum * 0.01f;
+        parseNum += _dir * 0.001f;
+        if(parseNum > 1)
+        {
+            parseNum *= 0.1f;
+        }
+        parseNum += 1;
+        return parseNum;
     }
 
     /// <summary>
@@ -52,7 +98,12 @@ public class SynthesisBoxData : MonoBehaviour
     /// </summary>
     void GetCrystalData()
     {
-        synManager = GameObject.Find("SynthesisScript").GetComponent<SynthesisManager>();
+        Image icon = transform.GetChild(0).gameObject.GetComponent<Image>();
+        // マスにセットされてる情報を削除
+        RefleshBoxData(icon);
+        // つかんでるクリスタルの情報を更新
+        synManager.CatchingCrystal = settingCrystalData;
+
     }
 
 
