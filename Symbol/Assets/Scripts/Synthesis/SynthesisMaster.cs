@@ -7,6 +7,8 @@ using UnityEngine;
 /// </summary>
 public class SynthesisMaster : MonoBehaviour
 {
+    private SynthesisUsecase usecase;
+
     protected SynthesisManager synthesisManager;
     protected SynthesisController synthesisController;
     protected SynthesisUIController synthesisUIController;

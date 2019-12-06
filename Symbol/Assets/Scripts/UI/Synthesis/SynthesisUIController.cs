@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 /// <summary>
 /// 合成UIスクリプト
 /// </summary>
 public class SynthesisUIController : SynthesisMaster
 {
+    [SerializeField]
+    private SynthesisUsecase usecase;
     // 持ち物クリスタル
     [SerializeField]
     private Transform crystalBoxUI;
@@ -44,20 +47,28 @@ public class SynthesisUIController : SynthesisMaster
         // UIにクリスタル情報と数を追加、UIを情報内のiconに設定
         foreach (var i in _bag)
         {
-            GameObject crystal = Instantiate((GameObject)Resources.Load("Prefabs/CrystalPanel"), crystalUIMask.transform.GetChild(0));
+            GameObject crystal = Instantiate(usecase.SynPrefabInfo.CrystalUIPrefab.gameObject, crystalBoxUI);
             float UIWidth = crystal.GetComponent<RectTransform>().sizeDelta.x;
             float maskWidth = crystalUIMask.GetComponent<RectTransform>().sizeDelta.x;
-            CrystalUIInfo uiInfo = crystal.GetComponent<CrystalUIInfo>();
+            CrystalUIController uiInfo = crystal.GetComponent<CrystalUIController>();
             Vector2 firstPos = new Vector2(maskWidth * 0.5f * -1 + UIWidth * 0.5f,0);
 
             crystal.transform.localPosition = new Vector2(firstPos.x + UIWidth * setCount,0);
             uiInfo.Info = i.Key;
             uiInfo.CrystalCount = i.Value;
-            crystal.GetComponent<Image>().sprite = i.Key.icon;
-            crystal.transform.GetComponentInChildren<Text>().text = uiInfo.CrystalCount.ToString();
             crystal.GetComponent<Button>().onClick.AddListener(() => ClickCrystalList(crystal.GetComponent<Image>()));
             setCount++;
         }
+    }
+
+    private void GenereteMyCrystal(Dictionary<CrystalInfo.Data, int> _bag)
+    {
+        GameObject crystal = Instantiate((GameObject)Resources.Load("Prefabs/CrystalPanel"), crystalUIMask.transform.GetChild(0));
+        float UIWidth = crystal.GetComponent<RectTransform>().sizeDelta.x;
+        float maskWidth = crystalUIMask.GetComponent<RectTransform>().sizeDelta.x;
+        CrystalUIController uiInfo = crystal.GetComponent<CrystalUIController>();
+        Vector2 firstPos = new Vector2(maskWidth * 0.5f * -1 + UIWidth * 0.5f, 0);
+
     }
 
     /// <summary>
@@ -69,7 +80,7 @@ public class SynthesisUIController : SynthesisMaster
         // 何もつかんでいない時は、新たに生成
         if (!synthesisManager.CatchFlag)
         {
-            GenerateCrystal(_touch);
+            GenerateCatchCrystal(_touch);
         }
         else　// つかんでた場合は切り替え
         {
@@ -89,8 +100,8 @@ public class SynthesisUIController : SynthesisMaster
     void SetCatchCrystalData(Image crystal)
     {
         CatchingCrystalInfo info = new CatchingCrystalInfo();
-        info.UIdata = crystal.GetComponent<CrystalUIInfo>().Info.icon;
-        info.crysData = crystal.GetComponent<CrystalUIInfo>().Info;
+        info.UIdata = crystal.GetComponent<CrystalUIController>().Info.icon;
+        info.crysData = crystal.GetComponent<CrystalUIController>().Info;
         info.dir = 1;
         synthesisController.CatchCrystal(info);
         crystal.sprite = synthesisManager.CatchingCrystal.UIdata;
@@ -101,14 +112,14 @@ public class SynthesisUIController : SynthesisMaster
     /// 初めてつかんだ時に呼ばれる
     /// </summary>
     /// <param name="_touchCrystal"></param>
-    private void GenerateCrystal(Image _touchCrystal)
+    private void GenerateCatchCrystal(Image _touchCrystal)
     {
         GameObject catchUI = new GameObject();
         synthesisManager.CatchFlag = true;
         catchUI = Instantiate(Resources.Load("Prefabs/CatchCrystal") as GameObject, _touchCrystal.transform.root);
         catchUI.transform.position = Input.mousePosition;
         clickObject = catchUI;
-        
+
     }
 
     /// <summary>

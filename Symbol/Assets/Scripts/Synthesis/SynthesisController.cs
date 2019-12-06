@@ -11,6 +11,8 @@ public class SynthesisController : SynthesisMaster
     //レシピと参照するための変数
     private int[] referenceRecipe;
 
+    private SynthesisUsecase synthesisUsecase;
+
     public void Init()
     {
         
