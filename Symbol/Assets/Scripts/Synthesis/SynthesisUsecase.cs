@@ -10,7 +10,6 @@ public class SynthesisUsecase : MonoBehaviour
     private SynthesisManager synManager;
     [SerializeField]
     private SynthesisUIController synUIController;
-
     [SerializeField]
     private SynthesisUIPrefabInfo synPrefabInfo;
 
@@ -18,4 +17,9 @@ public class SynthesisUsecase : MonoBehaviour
     public SynthesisManager SynManager { get => synManager; }
     public SynthesisUIController SynUIController { get => synUIController; }
     public SynthesisUIPrefabInfo SynPrefabInfo { get => synPrefabInfo; }
+
+    private void Start()
+    {
+        
+    }
 }

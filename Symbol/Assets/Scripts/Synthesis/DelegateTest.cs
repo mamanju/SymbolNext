@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// 渡す側
 public class DelegateTest : MonoBehaviour
 {
-    private delegate void Oncomplete(string txt);
     void Start()
     {
         hoge();
     }
-
-    private delegate void OnComplete();
 
     public void hoge()
     {
@@ -25,6 +23,7 @@ public class DelegateTest : MonoBehaviour
     }
 }
 
+// 受け取る側
 public class Hoge
 {
     public delegate void Callback();

@@ -10,24 +10,47 @@ public class CrystalUIController : MonoBehaviour
 {
     private CrystalInfo.Data info;
     private int crystalCount = 0;
+    private SynthesisUsecase usecase;
+    private Text stack;
 
-    public CrystalInfo.Data Info { get => info; set => info = value; }
-    public int CrystalCount { get => crystalCount; set => crystalCount = value; }
+    public CrystalInfo.Data Info { get { return info; } set { info = value; } }
+    public int CrystalCount {
+        get { return crystalCount; }
+        set {
+            crystalCount = value;
+            if(stack == null)
+            {
+                stack = transform.GetComponentInChildren<Text>();
+            }
+            stack.text = crystalCount.ToString();
+        }
+    }
 
-    private void Start()
+    void Start()
     {
-        GetComponent<Button>().onClick.AddListener(() => ClickCallback());
+        usecase = FindObjectOfType<SynthesisUsecase>();
+        GetComponent<Button>().onClick.AddListener(() => ClickAction(info));
+        stack = transform.GetComponentInChildren<Text>();
         ReflectUI();
     }
 
-    void ClickCallback()
+    void ClickAction(CrystalInfo.Data data)
     {
-
+        
     }
+
+    private void GenerateCatchCrystal()
+    {
+        GameObject catchUI = usecase.SynPrefabInfo.CrystalUIPrefab.gameObject;
+        usecase.SynManager.CatchFlag = true;
+        catchUI = Instantiate(catchUI, transform.root);
+        catchUI.transform.position = Input.mousePosition;
+    }
+
 
     void ReflectUI()
     {
         GetComponent<Image>().sprite = info.icon;
-        transform.GetComponentInChildren<Text>().text = crystalCount.ToString();
+        stack.text = crystalCount.ToString();
     }
 }

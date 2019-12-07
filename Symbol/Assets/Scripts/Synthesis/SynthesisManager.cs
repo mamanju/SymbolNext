@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// つかんでるクリスタル情報(オブジェクト、クリスタルの情報、回転)
+/// つかんでるクリスタル情報(Sprite、クリスタルの情報、回転)
 /// </summary>
 public struct CatchingCrystalInfo
 {

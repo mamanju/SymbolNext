@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 905767264334848052}
   m_Layer: 5
   m_Name: CatchCrystal
-  m_TagString: Untagged
+  m_TagString: CatchCrystal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

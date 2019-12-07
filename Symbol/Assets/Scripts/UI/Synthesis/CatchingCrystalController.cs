@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// クリスタル選択時にマウスに追従する処理
@@ -9,7 +10,7 @@ public class CatchingCrystalController : MonoBehaviour
 {
     private int crystalRotation = 1;
     private CatchingCrystalInfo catchData;
-    private SynthesisManager synManager;
+    private SynthesisUsecase usecase;
 
     /// <summary>
     /// つかんでいるクリスタルの情報
@@ -19,11 +20,28 @@ public class CatchingCrystalController : MonoBehaviour
     /// <summary>
     /// 1から時計回りに、最大4
     /// </summary>
-    public int CrystalRotation { get => crystalRotation; set => crystalRotation = value; }
+    public int CrystalRotation {
+        get { return crystalRotation; }
+        set {
+            crystalRotation = value;
+            if(crystalRotation < 1)
+            {
+                crystalRotation = 1;
+            }else if(crystalRotation > 4)
+            {
+                crystalRotation = 4;
+            }
+        }
+    }
+
+    void Awake()
+    {
+        DuplicateCheck();
+    }
 
     void Start()
     {
-        synManager = GameObject.Find("SynthesisScript").GetComponent<SynthesisManager>();
+        usecase = GameObject.Find("SynthesisScript").GetComponent<SynthesisUsecase>();
     }
 
     void Update()
@@ -37,12 +55,27 @@ public class CatchingCrystalController : MonoBehaviour
         }
     }
 
+    void DuplicateCheck()
+    {
+        if (GameObject.FindGameObjectWithTag("CatchCrystal"))
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void ChangeInfo()
+    {
+        GetComponent<Image>().sprite = catchData.crysData.icon;
+        crystalRotation = catchData.dir;
+        transform.rotation = Quaternion.identity;
+    }
+
     /// <summary>
     /// クリスタルを離す度に呼ばれる、つかんだObjectの削除
     /// </summary>
     public void RemoveCatchData()
     {
-        synManager.CatchingCrystal = new CatchingCrystalInfo();
+        usecase.SynManager.CatchingCrystal = new CatchingCrystalInfo();
         Destroy(gameObject);
     }
 
@@ -51,16 +84,10 @@ public class CatchingCrystalController : MonoBehaviour
     /// </summary>
     private void RotateCrystal(int _dir)
     {
-        catchData.dir += _dir;
+        CrystalRotation += _dir;
+        catchData.dir += crystalRotation;
         
-        if(catchData.dir > 4)
-        {
-            catchData.dir = 1;
-        }else if(catchData.dir < 1)
-        {
-            catchData.dir = 4;
-        }
-        transform.Rotate(0, 0, -90 * _dir);
-        synManager.ApplyCatchCrystal(catchData);
+        transform.Rotate(0, 0, -90 * crystalRotation);
+        usecase.SynManager.ApplyCatchCrystal(catchData);
     }
 }
