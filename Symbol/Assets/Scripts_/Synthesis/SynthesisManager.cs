@@ -61,11 +61,6 @@ public class SynthesisManager : SynthesisMaster
         catchingCrystal = new CatchingCrystalInfo();
         catchFlag = false;
         playersCrystal = null;
-
-        if(maxCrystalRotation % 2 != 0 || maxCrystalRotation == 0)
-        {
-            Debug.LogError("クリスタルの最大回転が正しく入力されていません");
-        }
     }
 
     void Update() {

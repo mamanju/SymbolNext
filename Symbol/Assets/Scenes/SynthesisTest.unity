@@ -566,7 +566,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 714605025}
+      - m_Target: {fileID: 0}
         m_MethodName: ClickBox
         m_Mode: 2
         m_Arguments:
@@ -709,7 +709,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 714605025}
+      - m_Target: {fileID: 0}
         m_MethodName: ClickBox
         m_Mode: 2
         m_Arguments:
@@ -1112,7 +1112,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 714605025}
+      - m_Target: {fileID: 0}
         m_MethodName: ClickBox
         m_Mode: 2
         m_Arguments:
@@ -1529,10 +1529,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 714605028}
-  - component: {fileID: 714605027}
-  - component: {fileID: 714605026}
-  - component: {fileID: 714605025}
-  - component: {fileID: 714605029}
   m_Layer: 0
   m_Name: SynthesisScript
   m_TagString: Untagged
@@ -1540,48 +1536,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &714605025
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 714605024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3258dc63eec74d6468cbf42cbf01ce7d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  crystalBoxUI: {fileID: 384720727}
-  crystalUIMask: {fileID: 1155918528}
-  player: {fileID: 1218422658}
---- !u!114 &714605026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 714605024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8046a3061236c647a7a4b16f179e60f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Phase: 0
-  player: {fileID: 1218422658}
-  maxCrystalRotation: 3
---- !u!114 &714605027
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 714605024}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21c3d095126c60b4a982f92d3edf142c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &714605028
 Transform:
   m_ObjectHideFlags: 0
@@ -1596,18 +1550,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &714605029
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 714605024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b9a67e06b8168e448a7dd38970aedb2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &826323950
 GameObject:
   m_ObjectHideFlags: 0
@@ -1799,7 +1741,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 714605025}
+      - m_Target: {fileID: 0}
         m_MethodName: ClickBox
         m_Mode: 2
         m_Arguments:
@@ -2135,7 +2077,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 714605025}
+      - m_Target: {fileID: 0}
         m_MethodName: ClickBox
         m_Mode: 2
         m_Arguments:
@@ -2531,7 +2473,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 714605025}
+      - m_Target: {fileID: 0}
         m_MethodName: ClickBox
         m_Mode: 2
         m_Arguments:
@@ -2655,6 +2597,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1218422659}
   - component: {fileID: 1218422658}
+  - component: {fileID: 1218422660}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2693,6 +2636,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1218422660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1218422657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b225cf4ecbdfedd41a08439d12c95fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1260657538
 GameObject:
   m_ObjectHideFlags: 0
@@ -3281,7 +3236,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 714605025}
+      - m_Target: {fileID: 0}
         m_MethodName: ClickBox
         m_Mode: 2
         m_Arguments:
@@ -3424,7 +3379,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 714605025}
+      - m_Target: {fileID: 0}
         m_MethodName: ClickBox
         m_Mode: 2
         m_Arguments:
@@ -4003,7 +3958,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 714605025}
+      - m_Target: {fileID: 0}
         m_MethodName: ClickBox
         m_Mode: 2
         m_Arguments:
@@ -4103,3 +4058,65 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2072145734}
   m_CullTransparentMesh: 0
+--- !u!1 &2127147373
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2127147376}
+  - component: {fileID: 2127147375}
+  - component: {fileID: 2127147374}
+  m_Layer: 0
+  m_Name: SynthesisUIView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2127147374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2127147373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d751ebc7216974f4483342cb144fd79c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SynthesisFlag: 0
+  playerManagement: {fileID: 1218422660}
+--- !u!114 &2127147375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2127147373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a021ffd41882c2247811bf0ee1b32d10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crystalUIController: {fileID: 7506431813029833204, guid: ad840bc28eae493489094cc90dac457c,
+    type: 3}
+  viewArea: {fileID: 1155918526}
+  hogeList: {fileID: 626383268}
+--- !u!4 &2127147376
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2127147373}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - CatchCrystal
+  - CrystalStock
   layers:
   - Default
   - TransparentFX

@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class SynthesisUsecase : MonoBehaviour
 {
-    [SerializeField]
+    //[SerializeField]
     private SynthesisController synController;
-    [SerializeField]
+    //[SerializeField]
     private SynthesisManager synManager;
-    [SerializeField]
+    //[SerializeField]
     private SynthesisUIController synUIController;
-    [SerializeField]
+    //[SerializeField]
     private SynthesisUIPrefabInfo synPrefabInfo;
 
     public SynthesisController SynController { get => synController; }
@@ -18,8 +18,11 @@ public class SynthesisUsecase : MonoBehaviour
     public SynthesisUIController SynUIController { get => synUIController; }
     public SynthesisUIPrefabInfo SynPrefabInfo { get => synPrefabInfo; }
 
-    private void Start()
+    private void Awake()
     {
-        
+        synController = GetComponent<SynthesisController>();
+        synManager = GetComponent<SynthesisManager>();
+        synUIController = GetComponent<SynthesisUIController>();
+        synPrefabInfo = GetComponent<SynthesisUIPrefabInfo>();
     }
 }

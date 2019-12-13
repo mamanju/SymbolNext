@@ -9,7 +9,7 @@ using UnityEngine.UI;
 /// </summary>
 public class SynthesisUIController : SynthesisMaster
 {
-    [SerializeField]
+    //[SerializeField]
     private SynthesisUsecase usecase;
     // 持ち物クリスタル
     [SerializeField]
@@ -44,6 +44,7 @@ public class SynthesisUIController : SynthesisMaster
     public void Init()
     {
         clickObject = null;
+        usecase = GetComponent<SynthesisUsecase>();
     }
 
     /// <summary>
