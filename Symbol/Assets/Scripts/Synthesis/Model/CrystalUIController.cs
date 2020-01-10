@@ -13,6 +13,9 @@ public class CrystalUIController : MonoBehaviour
     private SynthesisUsecase usecase;
     private Text stack;
 
+    [SerializeField]
+    private CatchingCrystalInfo catchCrystal;
+
     public CrystalInfo.Data Info { get { return info; } set { info = value; } }
     public int CrystalCount {
         get { return crystalCount; }
@@ -29,12 +32,11 @@ public class CrystalUIController : MonoBehaviour
     void Start()
     {
         usecase = FindObjectOfType<SynthesisUsecase>();
-        GetComponent<Button>().onClick.AddListener(() => ClickAction(info));
+        transform.GetChild(0).GetComponent<Button>().onClick.AddListener(() => ClickAction());
         stack = transform.GetComponentInChildren<Text>();
-        ReflectUI();
     }
 
-    void ClickAction(CrystalInfo.Data data)
+    void ClickAction()
     {
         
     }
@@ -48,9 +50,9 @@ public class CrystalUIController : MonoBehaviour
     }
 
 
-    void ReflectUI()
+    public void ReflectUI(Sprite _icon, int _count)
     {
-        GetComponent<Image>().sprite = info.icon;
-        stack.text = crystalCount.ToString();
+        transform.GetChild(0).GetComponent<Image>().sprite = _icon;
+        stack.text = _count.ToString();
     }
 }

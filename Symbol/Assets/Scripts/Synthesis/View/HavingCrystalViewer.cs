@@ -46,11 +46,9 @@ public class HavingCrystalViewer : MonoBehaviour
 
         foreach(var i in bag)
         {
-            crystal.GetComponent<Image>().sprite = i.Key.icon;
-            crystal.GetComponent<CrystalUIController>().Info = i.Key;
-            crystal.transform.GetChild(0).GetComponent<Text>().text = i.Value.ToString();
             Instantiate(crystal, viewArea.GetChild(0).transform);
             crystal.transform.localPosition = new Vector2(-viewRadius + crystalWidth * count , 0);
+            crystal.GetComponent<CrystalUIController>().ReflectUI(i.Key.icon, i.Value);
             count++;
         }
     }
