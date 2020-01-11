@@ -35,8 +35,8 @@ public class HavingCrystalViewer : MonoBehaviour
     /// <summary>
     /// 並べる処理
     /// </summary>
-    /// <param name="bag"></param>
-    public void LineUpBag(Dictionary<CrystalInfo.Data,int> bag)
+    /// <param name="_bag"></param>
+    public void LineUpBag(Dictionary<CrystalInfo.Data,int> _bag)
     {
         GameObject crystal = crystalUIController.gameObject;
         Transform UIData = crystal.transform.GetChild(0).GetComponent<RectTransform>();
@@ -44,10 +44,11 @@ public class HavingCrystalViewer : MonoBehaviour
         float viewRadius = viewArea.sizeDelta.x * 0.5f;
         int count = 0;
 
-        foreach(var i in bag)
+        foreach(var i in _bag)
         {
             Instantiate(crystal, viewArea.GetChild(0).transform);
             crystal.transform.localPosition = new Vector2(-viewRadius + crystalWidth * count , 0);
+            crystal.GetComponent<CrystalUIController>().CrystalCount = i.Value;
             crystal.GetComponent<CrystalUIController>().ReflectUI(i.Key.icon, i.Value);
             count++;
         }
