@@ -5,12 +5,12 @@ using UnityEngine;
 /// <summary>
 /// つかんでるクリスタル情報(Sprite、クリスタルの情報、回転)
 /// </summary>
-public struct CatchingCrystalInfo
-{
-    public Sprite UIdata;
-    public CrystalInfo.Data crysData;
-    public int dir;
-}
+//public struct CatchingCrystalInfo
+//{
+//    public Sprite UIdata;
+//    public CrystalInfo.Data crysData;
+//    public int dir;
+//}
 
 /// <summary>
 /// 合成の管理
@@ -24,6 +24,7 @@ public class SynthesisManager : SynthesisMaster
         Result,
     }
     
+    [HideInInspector]
     public SynthesisPhase Phase;
 
     //プレイヤーが所持しているクリスタル
@@ -76,8 +77,8 @@ public class SynthesisManager : SynthesisMaster
     void SetData()
     {
         playersCrystal = null;
-        PlayerStatus pStatus = player.GetStatus;
-        playersCrystal = pStatus.CrystalBag;
+        //PlayerStatus pStatus = player.GetStatus;
+        //playersCrystal = pStatus.CrystalBag;
         synthesisUIController.SetInfo(playersCrystal);
     }
 

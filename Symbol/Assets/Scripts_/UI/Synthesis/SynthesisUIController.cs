@@ -95,7 +95,7 @@ public class SynthesisUIController : SynthesisMaster
             GameObject crystal = usecase.SynPrefabInfo.CrystalUIPrefab.gameObject;
             float UIWidth = crystal.GetComponent<RectTransform>().sizeDelta.x;
             float maskWidth = crystalUIMask.sizeDelta.x;
-            CrystalUIController uiInfo = crystal.GetComponent<CrystalUIController>();
+            CrystalUIManagement uiInfo = crystal.GetComponent<CrystalUIManagement>();
             Vector2 firstPos = new Vector2(maskWidth * 0.5f * -1 + UIWidth * 0.5f, 0);
 
             uiInfo.Info = i.Key;
@@ -123,7 +123,7 @@ public class SynthesisUIController : SynthesisMaster
 
         clickObject.GetComponent<Image>().sprite = _touch.sprite;
         SetCatchCrystalData(_touch);
-        clickObject.GetComponent<CatchingCrystalController>().CatchData = synthesisManager.CatchingCrystal;
+        //clickObject.GetComponent<CatchingCrystalController>().CatchData = synthesisManager.CatchingCrystal;
 
     }
 
@@ -134,8 +134,8 @@ public class SynthesisUIController : SynthesisMaster
     void SetCatchCrystalData(Image crystal)
     {
         CatchingCrystalInfo info = new CatchingCrystalInfo();
-        info.UIdata = crystal.GetComponent<CrystalUIController>().Info.icon;
-        info.crysData = crystal.GetComponent<CrystalUIController>().Info;
+        info.UIdata = crystal.GetComponent<CrystalUIManagement>().Info.icon;
+        info.crysData = crystal.GetComponent<CrystalUIManagement>().Info;
         info.dir = 1;
         synthesisController.CatchCrystal(info);
         crystal.sprite = synthesisManager.CatchingCrystal.UIdata;

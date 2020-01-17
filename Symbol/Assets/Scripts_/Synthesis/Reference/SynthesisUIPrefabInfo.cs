@@ -5,11 +5,11 @@ using UnityEngine;
 public class SynthesisUIPrefabInfo : MonoBehaviour
 {
     [SerializeField]
-    private CrystalUIController crystalUIPrefab;
+    private CrystalUIManagement crystalUIPrefab;
 
     [SerializeField]
     private GameObject catchCrystalUIPrefab;
 
-    public CrystalUIController CrystalUIPrefab { get => crystalUIPrefab; }
+    public CrystalUIManagement CrystalUIPrefab { get => crystalUIPrefab; }
     public GameObject CatchCrystalUIPrefab { get => catchCrystalUIPrefab; }
 }

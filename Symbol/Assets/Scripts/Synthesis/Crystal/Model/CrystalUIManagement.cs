@@ -3,10 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public struct CatchingCrystalInfo
+{
+    public Sprite UIdata;
+    public CrystalInfo.Data crysData;
+    public int dir;
+}
+
 /// <summary>
 /// UIの情報格納スクリプト
 /// </summary>
-public class CrystalUIController : MonoBehaviour
+public class CrystalUIManagement : MonoBehaviour
 {
     private CrystalInfo.Data info;
     private int crystalCount = 0;
@@ -32,21 +39,32 @@ public class CrystalUIController : MonoBehaviour
     void Start()
     {
         usecase = FindObjectOfType<SynthesisUsecase>();
-        transform.GetChild(0).GetComponent<Button>().onClick.AddListener(() => ClickAction());
         stack = transform.GetComponentInChildren<Text>();
     }
 
-    void ClickAction()
+    public void GenerateCatchCrystal()
     {
-        
+        GameObject catchUI = usecase.SynPrefabInfo.CatchCrystalUIPrefab.gameObject;
+        if (!DuplicateCheck(catchUI))
+        {
+            catchUI = Instantiate(catchUI, transform.root);
+            catchUI.GetComponent<CatchingCrystalController>().SetSelectData(info);
+            catchUI.transform.position = Input.mousePosition;
+        }
+        else
+        {
+
+        }
+
     }
 
-    private void GenerateCatchCrystal()
+    private bool DuplicateCheck(GameObject _clone)
     {
-        GameObject catchUI = usecase.SynPrefabInfo.CrystalUIPrefab.gameObject;
-        usecase.SynManager.CatchFlag = true;
-        catchUI = Instantiate(catchUI, transform.root);
-        catchUI.transform.position = Input.mousePosition;
+        if (GameObject.Find(_clone.name))
+        {
+            return false;
+        }
+        return true;
     }
 
 

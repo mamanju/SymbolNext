@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 合成画面表示時、現在のクリスタルを取得
 /// </summary>
-public class HavingCrystalSetup : MonoBehaviour
+public class SetupProperty : MonoBehaviour
 {
     /// <summary>
     /// 合成画面表示フラグ

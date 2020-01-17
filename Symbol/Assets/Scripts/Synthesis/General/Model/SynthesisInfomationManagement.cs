@@ -5,6 +5,9 @@ using UnityEngine;
 public struct SelectingCrystalInfo {
     public CrystalInfo.Data SelectingCrystal;
     private int crystalDirection;
+    /// <summary>
+    /// クリスタルの回転管理
+    /// </summary>
     public int CrystalDirection
     {
         get { return crystalDirection; }

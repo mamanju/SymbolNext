@@ -3,19 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// クリスタル選択時にマウスに追従する処理
-/// </summary>
 public class CatchingCrystalController : MonoBehaviour
 {
     private int crystalRotation = 1;
     private CatchingCrystalInfo catchData;
     private SynthesisUsecase usecase;
-
-    /// <summary>
-    /// つかんでいるクリスタルの情報
-    /// </summary>
-    public CatchingCrystalInfo CatchData { get { return catchData; } set { catchData = value; } }
 
     /// <summary>
     /// 1から時計回りに、最大4
@@ -39,11 +31,6 @@ public class CatchingCrystalController : MonoBehaviour
         DuplicateCheck();
     }
 
-    void Start()
-    {
-        usecase = GameObject.Find("SynthesisScript").GetComponent<SynthesisUsecase>();
-    }
-
     void Update()
     {
         transform.position = Input.mousePosition;
@@ -53,6 +40,20 @@ public class CatchingCrystalController : MonoBehaviour
         }else if (Input.GetKeyDown(KeyCode.D)) {
             RotateCrystal(1);
         }
+    }
+
+    /// <summary>
+    /// クリスタル選択時に必ず通る関数
+    /// </summary>
+    /// <param name="_data"></param>
+    public void SetSelectData(CrystalInfo.Data _data)
+    {
+        catchData.crysData = _data;
+        catchData.UIdata = _data.icon;
+        catchData.dir = 1;
+
+        transform.rotation = Quaternion.identity;
+        GetComponent<Image>().sprite = _data.icon;
     }
 
     void DuplicateCheck()
@@ -75,7 +76,6 @@ public class CatchingCrystalController : MonoBehaviour
     /// </summary>
     public void RemoveCatchData()
     {
-        usecase.SynManager.CatchingCrystal = new CatchingCrystalInfo();
         Destroy(gameObject);
     }
 
@@ -88,6 +88,5 @@ public class CatchingCrystalController : MonoBehaviour
         catchData.dir += crystalRotation;
         
         transform.Rotate(0, 0, -90 * crystalRotation);
-        usecase.SynManager.ApplyCatchCrystal(catchData);
     }
 }

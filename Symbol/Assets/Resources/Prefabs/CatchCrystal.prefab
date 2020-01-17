@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4548399113873639966}
   - component: {fileID: 764337034875411615}
   - component: {fileID: 905767264334848052}
+  - component: {fileID: 8122835181959054501}
   m_Layer: 5
   m_Name: CatchCrystal
   m_TagString: CatchCrystal
@@ -85,5 +86,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7bdd83a6acbb4034685a42e96c0e576f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8122835181959054501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5603688226340305193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76b7ccfb40f06684bb115ba0989c045a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
