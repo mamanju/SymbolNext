@@ -39,6 +39,7 @@ public class HavingCrystalViewer : MonoBehaviour
     public void LineUpBag(Dictionary<CrystalInfo.Data,int> _bag)
     {
         GameObject crystal = crystalUIController.gameObject;
+
         Transform UIData = crystal.transform.GetChild(0).GetComponent<RectTransform>();
         float crystalWidth = UIData.GetComponent<RectTransform>().sizeDelta.x;
         float viewRadius = viewArea.sizeDelta.x * 0.5f;

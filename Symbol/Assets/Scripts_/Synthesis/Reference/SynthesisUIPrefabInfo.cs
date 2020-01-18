@@ -8,8 +8,8 @@ public class SynthesisUIPrefabInfo : MonoBehaviour
     private CrystalUIManagement crystalUIPrefab;
 
     [SerializeField]
-    private GameObject catchCrystalUIPrefab;
+    private CatcingCrystal catchCrystalUIPrefab;
 
     public CrystalUIManagement CrystalUIPrefab { get => crystalUIPrefab; }
-    public GameObject CatchCrystalUIPrefab { get => catchCrystalUIPrefab; }
+    public CatcingCrystal CatchCrystalUIPrefab { get => catchCrystalUIPrefab; }
 }

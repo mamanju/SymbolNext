@@ -13,7 +13,7 @@ public class CatchingCrystalViewer : MonoBehaviour
     /// <param name="_info"></param>
     public void GeneretePickCrystal(CrystalInfo.Data _info)
     {
-        GameObject crystal = usecase.SynPrefabInfo.CatchCrystalUIPrefab;
+        var crystal = usecase.SynPrefabInfo.CatchCrystalUIPrefab;
         crystal.GetComponent<CatchingCrystalController>().SetSelectData(_info);
     }
 
@@ -29,15 +29,6 @@ public class CatchingCrystalViewer : MonoBehaviour
     public void ReflectSprite(Sprite _icon)
     {
         GetComponent<Image>().sprite = _icon;
-    }
-
-    /// <summary>
-    /// クリスタル回転
-    /// </summary>
-    /// <param name="_dir"></param>
-    public void RotateCrystal(GameObject _catchCrystal,int _dir)
-    {
-        _catchCrystal.transform.Rotate(0, 0, 90 * _dir);
     }
 
     /// <summary>

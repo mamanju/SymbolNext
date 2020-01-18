@@ -114,7 +114,7 @@ public class SynthesisUIController : SynthesisMaster
         // 何もつかんでいない時は、新たに生成
         if (!synthesisManager.CatchFlag)
         {
-            GenerateCatchCrystal(_touch);
+            //GenerateCatchCrystal(_touch);
         }
         else　// つかんでた場合は切り替え
         {
@@ -146,15 +146,15 @@ public class SynthesisUIController : SynthesisMaster
     /// 初めてつかんだ時に呼ばれる
     /// </summary>
     /// <param name="_touchCrystal"></param>
-    private void GenerateCatchCrystal(Image _touchCrystal)
-    {
-        GameObject catchUI = new GameObject();
-        synthesisManager.CatchFlag = true;
-        catchUI = Instantiate(usecase.SynPrefabInfo.CatchCrystalUIPrefab, _touchCrystal.transform.root);
-        catchUI.transform.position = Input.mousePosition;
-        clickObject = catchUI;
+    //private void GenerateCatchCrystal(Image _touchCrystal)
+    //{
+    //    GameObject catchUI = new GameObject();
+    //    synthesisManager.CatchFlag = true;
+    //    catchUI = Instantiate(usecase.SynPrefabInfo.CatchCrystalUIPrefab, _touchCrystal.transform.root);
+    //    catchUI.transform.position = Input.mousePosition;
+    //    clickObject = catchUI;
 
-    }
+    //}
 
     /// <summary>
     /// クリスタルを持ち替えた時の処理
