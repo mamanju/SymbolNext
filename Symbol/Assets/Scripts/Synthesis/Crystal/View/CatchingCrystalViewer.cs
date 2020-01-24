@@ -14,8 +14,10 @@ public class CatchingCrystalViewer : MonoBehaviour
     public void GeneretePickCrystal(CrystalInfo.Data _info)
     {
         var crystal = usecase.SynPrefabInfo.CatchCrystalUIPrefab;
-        crystal.GetComponent<CatchingCrystalController>().SetSelectData(_info);
+        crystal.GetComponent<CrystalUIManagement>().SetSelectData(_info);
     }
+
+
 
     /// <summary>
     /// クリスタル更新

@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class HavingCrystalViewer : MonoBehaviour
 {
     [SerializeField]
-    private CrystalUIManagement crystalUIController;
+    private CatchingCrystal crystalUIController;
     [SerializeField]
     private RectTransform viewArea;
     [SerializeField]
@@ -40,7 +40,7 @@ public class HavingCrystalViewer : MonoBehaviour
     {
         GameObject crystal = crystalUIController.gameObject;
 
-        Transform UIData = crystal.transform.GetChild(0).GetComponent<RectTransform>();
+        Transform UIData = crystal.transform.GetComponent<RectTransform>();
         float crystalWidth = UIData.GetComponent<RectTransform>().sizeDelta.x;
         float viewRadius = viewArea.sizeDelta.x * 0.5f;
         int count = 0;
@@ -49,8 +49,7 @@ public class HavingCrystalViewer : MonoBehaviour
         {
             Instantiate(crystal, viewArea.GetChild(0).transform);
             crystal.transform.localPosition = new Vector2(-viewRadius + crystalWidth * count , 0);
-            crystal.GetComponent<CrystalUIManagement>().CrystalCount = i.Value;
-            crystal.GetComponent<CrystalUIManagement>().ReflectUI(i.Key.icon, i.Value);
+            //crystal.GetComponent<CrystalUIManagement>().ReflectUI(i.Key.icon, i.Value);
             count++;
         }
     }

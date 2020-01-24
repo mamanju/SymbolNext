@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CatcingCrystal : MonoBehaviour
+public class CatchingCrystal : MonoBehaviour
 {
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             RotateCrystal(-1);
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+        else if (Input.GetKeyDown(KeyCode.E))
         {
             RotateCrystal(-1);
         }

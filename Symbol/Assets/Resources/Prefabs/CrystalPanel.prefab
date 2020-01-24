@@ -167,6 +167,7 @@ GameObject:
   - component: {fileID: 708602881324942200}
   - component: {fileID: 4654891097197193194}
   - component: {fileID: 7985648628092132735}
+  - component: {fileID: 4794568289671689680}
   m_Layer: 5
   m_Name: CrystalPanel
   m_TagString: Untagged
@@ -310,3 +311,15 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &4794568289671689680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8003599148982118688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 035b9137499fd5e4680f4857b9de01fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

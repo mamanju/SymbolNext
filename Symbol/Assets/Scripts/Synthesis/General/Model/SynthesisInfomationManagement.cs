@@ -30,5 +30,15 @@ public struct SelectingCrystalInfo {
 /// </summary>
 public class SynthesisInfomationManagement : MonoBehaviour
 {
+    /// <summary>
+    /// 合成画面表示フラグ
+    /// </summary>
+    [HideInInspector]
+    public bool SynthesisFlag = false;
+
     public SelectingCrystalInfo selectingCrystal;
+
+    [HideInInspector]
+    public Dictionary<CrystalInfo.Data, int> tempCrystalBag = new Dictionary<CrystalInfo.Data, int>();
+
 }
