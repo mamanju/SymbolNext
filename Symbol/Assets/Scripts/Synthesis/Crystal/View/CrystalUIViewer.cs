@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// クリスタルUI関連の処理クラス
+/// クリスタルUI関連の表示処理クラス
 /// </summary>
 public class CrystalUIViewer : MonoBehaviour
 {
@@ -21,14 +21,14 @@ public class CrystalUIViewer : MonoBehaviour
     /// </summary>
     /// <param name="_bag"></param>
     public void GenereteCrystalUI(Dictionary<CrystalInfo.Data, int> _bag) {
-        List<Image> cryUIs = new List<Image>();
+        List<GameObject> cryUIs = new List<GameObject>();
         List<int> cryCount = new List<int>();
         List<Sprite> cryIcon = new List<Sprite>();
 
         foreach(var i in _bag) {
             GameObject cryUI = prefabList.CrystalUIPrefab.gameObject;
-            Instantiate(cryUI);
-            cryUIs.Add(cryUI.GetComponent<Image>());
+            Instantiate(cryUI,propertyViewArea);
+            cryUIs.Add(cryUI);
             cryCount.Add(i.Value);
             cryIcon.Add(i.Key.icon);
         }
@@ -38,21 +38,20 @@ public class CrystalUIViewer : MonoBehaviour
     /// <summary>
     /// 並べる
     /// </summary>
-    private void InfluenceCrystalInBag(List<Image> _crystals,List<int> _possetion,List<Sprite> _icons)
+    private void InfluenceCrystalInBag(List<GameObject> _crystals,List<int> _possetion,List<Sprite> _icons)
     {
-        float uiWidth = _crystals[0].transform.GetComponent<RectTransform>().sizeDelta.x;
+        float uiWidth = _crystals[0].GetComponent<RectTransform>().sizeDelta.x;
         float viewRadius = propertyViewArea.sizeDelta.x * 0.5f;
-        int count = 1;
+        int count = 0;
 
         foreach(var i in _crystals)
         {
-            i.transform.SetParent(propertyViewArea);
-            i.transform.position = new Vector2(-viewRadius * uiWidth * count, 0);
+            i.transform.localPosition = new Vector3(-viewRadius + uiWidth * count, 0,0);
+            i.GetComponent<Image>().sprite = _icons[count];
             count++;
+            Debug.Log(count);
         }
     }
-    
-
 
 
     #endregion

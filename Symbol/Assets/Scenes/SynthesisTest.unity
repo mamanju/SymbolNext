@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1551,7 +1551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 376bcf4538b899d4bac064d58d61fe77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crystalUIPrefab: {fileID: 7506431813029833204, guid: ad840bc28eae493489094cc90dac457c,
+  crystalUIPrefab: {fileID: 2796085836751378667, guid: b0815b9619e5e284786b1f0e28fca67d,
     type: 3}
   catchCrystalUIPrefab: {fileID: 6964662046574300584, guid: 4bebe402933745c418350d152c0ccfce,
     type: 3}
@@ -1595,7 +1595,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStatus: {fileID: 1218422660}
-  CrystalDataList: {fileID: 0}
+  CrystalDataList: {fileID: 626383268}
 --- !u!1 &826323950
 GameObject:
   m_ObjectHideFlags: 0
@@ -2683,7 +2683,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 0.4745098}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2750,6 +2750,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b225cf4ecbdfedd41a08439d12c95fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dataList: {fileID: 626383268}
 --- !u!1 &1260657538
 GameObject:
   m_ObjectHideFlags: 0

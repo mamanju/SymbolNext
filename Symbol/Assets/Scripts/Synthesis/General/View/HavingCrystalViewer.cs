@@ -19,17 +19,17 @@ public class HavingCrystalViewer : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            foreach (var i in hogeList.CrystalData)
-            {
-                hoge.Add(i.Value, 1);
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            LineUpBag(hoge);
-        }
+        //if (Input.GetKeyDown(KeyCode.A))
+        //{
+        //    foreach (var i in hogeList.CrystalData)
+        //    {
+        //        hoge.Add(i.Value, 1);
+        //    }
+        //}
+        //if (Input.GetKeyDown(KeyCode.D))
+        //{
+        //    LineUpBag(hoge);
+        //}
     }
 
     /// <summary>

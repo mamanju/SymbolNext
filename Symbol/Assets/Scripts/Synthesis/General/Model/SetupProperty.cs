@@ -24,7 +24,6 @@ public class SetupProperty :MonoBehaviour
     private void Update() {
         if (Input.GetKeyDown(KeyCode.A)) {
             GetMyBagData();
-            
         }
     }
 

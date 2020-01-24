@@ -10,6 +10,19 @@ public class PlayerStatusManagement : MonoBehaviour
     /// 持ち物
     /// </summary>
     public Dictionary<CrystalInfo.Data,int> MyBag { get { return myBag; } set { myBag = value; } }
-    
 
+    // デバッグ用
+
+    [SerializeField]
+    private CrystalDataList dataList;
+
+    private void Awake()
+    {
+        foreach(var i in dataList.CrystalData)
+        {
+            MyBag.Add(i.Value, 1);
+        }
+    }
+
+    // ----------
 }
