@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class CatchingCrystal : MonoBehaviour
 {
+    private CatchingCrystalInfo info;
+
+    public CatchingCrystalInfo Info { get => info; set => info = value; }
+
     private void Update()
     {
+        transform.position = Input.mousePosition;
+
         if (Input.GetKeyDown(KeyCode.Q))
         {
             RotateCrystal(-1);

@@ -27,8 +27,9 @@ public class CrystalUIViewer : MonoBehaviour
 
         foreach(var i in _bag) {
             GameObject cryUI = prefabList.CrystalUIPrefab.gameObject;
-            Instantiate(cryUI,propertyViewArea);
-            cryUIs.Add(cryUI);
+            GameObject cryUIClone = Instantiate(cryUI,propertyViewArea.transform.GetChild(0));
+            cryUIClone.GetComponent<CrystalUIButton>().MyData = i.Key;
+            cryUIs.Add(cryUIClone);
             cryCount.Add(i.Value);
             cryIcon.Add(i.Key.icon);
         }
@@ -49,7 +50,6 @@ public class CrystalUIViewer : MonoBehaviour
             i.transform.localPosition = new Vector3(-viewRadius + uiWidth * count, 0,0);
             i.GetComponent<Image>().sprite = _icons[count];
             count++;
-            Debug.Log(count);
         }
     }
 

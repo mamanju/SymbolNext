@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CatchCrystal
   - CrystalStock
+  - UIControll
   layers:
   - Default
   - TransparentFX

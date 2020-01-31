@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public struct CatchingCrystalInfo
 {
-    public Sprite UIdata;
     public CrystalInfo.Data crysData;
+    public Sprite UIdata;
     public int dir;
 }
 
@@ -15,22 +15,27 @@ public struct CatchingCrystalInfo
 /// </summary>
 public class CrystalUIManagement : MonoBehaviour
 {
-    private CrystalInfo.Data info;
     private int crystalCount = 0;
     private SynthesisUsecase usecase;
     private Text stack;
+
+    [SerializeField]
+    private Canvas synthesisCanvas;
+
+    [SerializeField]
+    private CrystalUIViewer crystalUIViewer;
 
     /// <summary>
     /// 持ち物クリスタル
     /// </summary>
     private List<Button> propertyCrystals = new List<Button>();
+
     
     /// <summary>
     /// 選択クリスタル
     /// </summary>
-    private CatchingCrystalInfo catchCrystal;
+    private GameObject catchingCrystal;
 
-    public CrystalInfo.Data Info { get { return info; } set { info = value; } }
     public int CrystalCount {
         get { return crystalCount; }
         set {
@@ -43,61 +48,37 @@ public class CrystalUIManagement : MonoBehaviour
         }
     }
 
+    public GameObject CatchingCrystal { get { return catchingCrystal; }  set { catchingCrystal = value; } }
+
     void Start()
     {
         usecase = FindObjectOfType<SynthesisUsecase>();
         stack = transform.GetComponentInChildren<Text>();
     }
-
-    /// <summary>
-    /// クリスタル選択時にどの関数を呼ぶか
-    /// </summary>
-    public void CatchActionSelect()
-    {
-        // 生成
-        if (!DuplicateCheck())
-        {
-            GenerateCatchCrystal();
-        }
-        else // 変更
-        {
-            
-        }
-        
-    }
-
+    
     /// <summary>
     /// 選択したクリスタル生成
     /// </summary>
-    public void GenerateCatchCrystal()
+    public void GenerateCatchCrystal(CrystalInfo.Data _data)
     {
         var catchUI = usecase.SynPrefabInfo.CatchCrystalUIPrefab;
-        catchUI = Instantiate(catchUI, transform.root);
+        catchUI = Instantiate(catchUI, synthesisCanvas.transform);
         catchUI.transform.position = Input.mousePosition;
-        SetSelectData(info);
+        catchingCrystal = catchUI.gameObject;
+        SetSelectData(catchUI.GetComponent<Image>(),_data);
     }
 
     /// <summary>
     /// クリスタル選択時に必ず通る関数
     /// </summary>
     /// <param name="_data"></param>
-    public void SetSelectData(CrystalInfo.Data _data)
+    public void SetSelectData(Image _catchUI,CrystalInfo.Data _data)
     {
-        catchCrystal.crysData = _data;
-        catchCrystal.UIdata = _data.icon;
-        catchCrystal.dir = 1;
-
-        transform.rotation = Quaternion.identity;
-        GetComponent<Image>().sprite = _data.icon;
-    }
-
-    private bool DuplicateCheck()
-    {
-        if (GameObject.FindGameObjectWithTag("CatchCrystal"))
-        {
-            return false;
-        }
-        return true;
+        CatchingCrystalInfo info = catchingCrystal.GetComponent<CatchingCrystal>().Info;
+        info.crysData = _data;
+        info.UIdata = _data.icon;
+        info.dir = 1;
+        crystalUIViewer.InfluenceCatchingCrystal(_catchUI, _data.icon);
     }
 
     /// <summary>
