@@ -3,22 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// マス内の格納情報管理
+/// </summary>
 public class SynthesisBoxData : MonoBehaviour
 {
+    private GameObject UIScriptsObject;
+    private CrystalChooseAction chooseAction;
+    private CrystalUIManagement UIManagement;
+
     private CatchingCrystalInfo settingCrystalData;
 
+    // クリスタル情報（回転など）
     public CatchingCrystalInfo SetingCrystalData { get => settingCrystalData; set => settingCrystalData = value; }
 
     private bool crystalSetFlag = false;
-
-    private SynthesisManager synManager;
 
     [SerializeField]
     private int boxNum;
 
     void Start()
     {
-        synManager = GameObject.Find("SynthesisScript").GetComponent<SynthesisManager>();
+        UIScriptsObject = GameObject.FindGameObjectWithTag("UIControll");
+        chooseAction = UIScriptsObject.GetComponent<CrystalChooseAction>();
+        UIManagement = UIScriptsObject.GetComponent<CrystalUIManagement>();
     }
 
     public void RefleshBoxData(Image _icon)
@@ -30,15 +38,27 @@ public class SynthesisBoxData : MonoBehaviour
     /// <summary>
     /// 合成マスクリック時
     /// </summary>
-    public void ClickSynthesisBox(CatchingCrystalInfo _data)
+    public void ClickSynthesisBox()
     {
+
+        if (!UIManagement.CatchingCrystal)
+            if (!crystalSetFlag)
+            {
+                return;
+            }
+            else
+            {
+                chooseAction.PickUpToBox(boxNum);
+                return;
+            }
+
         if (!crystalSetFlag)
         {
-            SetCrystalData(_data);
+            chooseAction.DispositionToBox(boxNum);
         }
         else
         {
-            GetCrystalData();
+            chooseAction.ChangeToBox(boxNum);
         }
     }
 
@@ -55,7 +75,6 @@ public class SynthesisBoxData : MonoBehaviour
         {
             SymmetryMode();
         }
-        synManager.SynthesisBox[boxNum] = ParseSetNum(settingCrystalData.crysData.ID, settingCrystalData.dir);
         icon.sprite = settingCrystalData.UIdata;
         icon.transform.Rotate(0, 0, 90 * (-_data.dir + 1));
     }
@@ -92,19 +111,4 @@ public class SynthesisBoxData : MonoBehaviour
         parseNum += 1;
         return parseNum;
     }
-
-    /// <summary>
-    /// セットされているクリスタルを取り出す
-    /// </summary>
-    void GetCrystalData()
-    {
-        Image icon = transform.GetChild(0).gameObject.GetComponent<Image>();
-        // マスにセットされてる情報を削除
-        RefleshBoxData(icon);
-        // つかんでるクリスタルの情報を更新
-        synManager.CatchingCrystal = settingCrystalData;
-
-    }
-
-
 }

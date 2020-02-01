@@ -14,7 +14,7 @@ public class CatchingCrystal : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            RotateCrystal(-1);
+            RotateCrystal(1);
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {

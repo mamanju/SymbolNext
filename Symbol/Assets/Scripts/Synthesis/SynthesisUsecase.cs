@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 共通経由クラス
+/// </summary>
 [RequireComponent(typeof(SynthesisUIPrefabInfo))]
 public class SynthesisUsecase : MonoBehaviour
 {

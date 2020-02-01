@@ -30,10 +30,10 @@ public class CrystalUIManagement : MonoBehaviour
     /// </summary>
     private List<Button> propertyCrystals = new List<Button>();
 
-    
-    /// <summary>
-    /// 選択クリスタル
-    /// </summary>
+    // 合成マス
+    [SerializeField]
+    private GameObject synthesisBoxes;
+
     private GameObject catchingCrystal;
 
     public int CrystalCount {
@@ -47,7 +47,10 @@ public class CrystalUIManagement : MonoBehaviour
             stack.text = crystalCount.ToString();
         }
     }
-
+    
+    /// <summary>
+    /// 選択クリスタル 
+    /// </summary>
     public GameObject CatchingCrystal { get { return catchingCrystal; }  set { catchingCrystal = value; } }
 
     void Start()
@@ -69,7 +72,7 @@ public class CrystalUIManagement : MonoBehaviour
     }
 
     /// <summary>
-    /// クリスタル選択時に必ず通る関数
+    /// 選択したクリスタルの情報格納（クリスタル選択時に必ず通す）
     /// </summary>
     /// <param name="_data"></param>
     public void SetSelectData(Image _catchUI,CrystalInfo.Data _data)
@@ -82,13 +85,14 @@ public class CrystalUIManagement : MonoBehaviour
     }
 
     /// <summary>
-    /// 持ち物クリスタル更新
+    /// 合成Boxに配置
     /// </summary>
-    /// <param name="_icon"></param>
-    /// <param name="_count"></param>
-    public void ReflectUI(Sprite _icon, int _count)
+    public void Disposition(int _num)
     {
-        transform.GetChild(0).GetComponent<Image>().sprite = _icon;
-        stack.text = _count.ToString();
+        SynthesisBoxData boxData = synthesisBoxes.transform.GetChild(_num).GetComponent<SynthesisBoxData>();
+        CatchingCrystalInfo catchInfo = catchingCrystal.GetComponent<CatchingCrystal>().Info;
+
+        boxData.SetingCrystalData = catchInfo;
+        crystalUIViewer.ReflectBoxUI(boxData.gameObject);
     }
 }

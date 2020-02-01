@@ -12,4 +12,11 @@ public class SynthesisUIPrefabInfo : MonoBehaviour
 
     public CrystalUIButton CrystalUIPrefab { get => crystalUIPrefab; }
     public CatchingCrystal CatchCrystalUIPrefab { get => catchCrystalUIPrefab; }
+
+    //public SynthesisUIPrefabInfo()
+    //{
+    //    crystalUIPrefab = Resources.Load("Prefabs/CrystalPanel") as CrystalUIButton;
+    //    catchCrystalUIPrefab = Resources.Load("Prefabs/CatchCrystal") as CatchingCrystal;
+    //}
+
 }

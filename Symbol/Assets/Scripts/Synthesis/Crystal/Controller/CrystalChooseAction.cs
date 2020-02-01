@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// クリスタルのUI（Button）を押した際の処理分け
+/// </summary>
 public class CrystalChooseAction : MonoBehaviour
 {
     private CrystalUIManagement crystalUIManagement;
@@ -20,7 +23,7 @@ public class CrystalChooseAction : MonoBehaviour
     {
         if(crystalUIManagement.CatchingCrystal == null)
         {
-            Generete(_data);
+            GenereteCrystal(_data);
         }
         else
         {
@@ -30,7 +33,7 @@ public class CrystalChooseAction : MonoBehaviour
 
     private CrystalInfo.Data crystalInfo;
     // bag内のクリスタルをクリック（生成）
-    public void Generete(CrystalInfo.Data _data)
+    public void GenereteCrystal(CrystalInfo.Data _data)
     {
         crystalUIManagement.GenerateCatchCrystal(_data);
     }
@@ -40,18 +43,18 @@ public class CrystalChooseAction : MonoBehaviour
 
     }
     // 合成Box内をクリック（配置）
-    public void Disposition(CrystalInfo.Data _data)
+    public void DispositionToBox(int _num)
     {
 
     }
     // 合成Box内をクリック（取り出し）
-    public void PickUp(CrystalInfo.Data _data)
+    public void PickUpToBox(int _num)
     {
 
     }
 
     // 合成Box内をクリック（変更）
-    public void ChangeToBox(CrystalInfo.Data _data)
+    public void ChangeToBox(int _num)
     {
 
     }

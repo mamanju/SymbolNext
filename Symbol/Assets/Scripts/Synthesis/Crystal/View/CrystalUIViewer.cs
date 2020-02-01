@@ -81,5 +81,17 @@ public class CrystalUIViewer : MonoBehaviour
 
     #endregion
 
-
+    #region 合成Box
+    /// <summary>
+    /// 情報をもとに反映
+    /// </summary>
+    /// <param name="_box"></param>
+    public void ReflectBoxUI(GameObject _box)
+    {
+        CatchingCrystalInfo info = _box.GetComponent<SynthesisBoxData>().SetingCrystalData;
+        Image icon = _box.transform.GetChild(0).GetComponent<Image>();
+        icon.sprite = info.crysData.icon;
+        icon.transform.Rotate(0, 0, 90 * info.dir);
+    }
+    #endregion
 }
